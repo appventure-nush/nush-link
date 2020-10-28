@@ -17,7 +17,7 @@ API: REST
 Back end: Express on node js
 Database: SQL database
 
-## Project landmarks
+## Project Workflow
 
 1. Create Front end
 2. Create Back end with API
