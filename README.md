@@ -26,3 +26,6 @@ Database: SQL database
 ## Git flow
 
 Refer to the [gitflow](docs/gitflow.md)
+
+## Coders
+David Goh Zhe Kai M20603
