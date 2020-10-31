@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/appventure-nush/nush-link/issues"
   },
-  "homepage": "https://github.com/appventure-nush/nush-link#readme"
+  "homepage": "https://github.com/appventure-nush/nush-link#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.6",
+    "uniqid": "^5.2.0"
+  }
 }
