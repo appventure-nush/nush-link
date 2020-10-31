@@ -23,6 +23,10 @@ Database: SQL database
 2. Create Back end with API
 3. Authentication
 
+## Project References
+
+Backend: https://www.youtube.com/watch?v=SLpUKaAGnm-g
+
 ## Git flow
 
 Refer to the [gitflow](docs/gitflow.md)
