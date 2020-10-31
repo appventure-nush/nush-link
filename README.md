@@ -28,4 +28,5 @@ Database: SQL database
 Refer to the [gitflow](docs/gitflow.md)
 
 ## Coders
-David Goh Zhe Kai M20603
+(frostyLegend) David Goh Zhe Kai M20603
+Email: david.gohzhekai@gmail.com
