@@ -18,6 +18,10 @@ Refer to [project readings](docs/project_readings.md)
 
 Refer to [project design](docs/project_design.md)
 
+## Project installation
+
+Refer to [project installation](docs/project_installation.md)
+
 ## Project Development Workflow
 
 Refer to [project development workflow](docs/project_development_workflow.md)
