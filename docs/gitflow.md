@@ -33,7 +33,11 @@
    ```
    git push origin YOUR-NEW-BRANCH
    ```
-
+5. Once the branch has been merged into the `main` branch do
+   ```
+   git pull origin main # Pull from github to main branch
+   git branch -d YOUR-NEW-BRANCH
+   ```
 ## Useful commands
 
 1. `git status` : This shows you the files that have been modified and are "unstaged"
