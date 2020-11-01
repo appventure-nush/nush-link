@@ -25,8 +25,18 @@
     2. <b>NPM</b> gets installed along with <b>Node.js</b>
     3. Install Typescript using `npm install -g typescript` through terminal
     
+## Installing the project (Front end)
+1. AdobeXD
+    - Tool that is used to design the pages of nushlink website
+    1. Download at: https://www.adobe.com/products/xd.html (Start for free is not a trial version, can be used for as long as needed) 
+2. React
+    - React is a JavaScript framework, a front end library, comes with prebuilt structures and components to build the app quicker
+    1. Input `npm install -g create-react-app` into terminal
+    2. Create a React App using `npx create-react-app name-of-app`
+3. SCSS (or Sass, Syntactically Awesome StyleSheets)
+    - Scss allows usage of features that do not exist in normal CSS, improves the styling of the project
+    1. Download SCSS compiler, <b>Live Sass Compiler</b> extension via VSCode
     
 
-## Installing the project (Front end)
 
 ## Installing the project (Back end)
