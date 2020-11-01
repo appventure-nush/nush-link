@@ -1,1 +1,0 @@
-# Project Naming Convention
