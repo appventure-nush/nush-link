@@ -22,6 +22,10 @@ Refer to [project design](docs/project_design.md)
 
 Refer to [project development workflow](docs/project_development_workflow.md)
 
+## Project Naming Convention
+
+Refer to [project naming convention](docs/projet_naming_convention.md)
+
 ## Project References
 
 Backend: https://www.youtube.com/watch?v=SLpUKaAGnm-g
