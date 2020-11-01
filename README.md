@@ -12,23 +12,23 @@ This URL shortner will be used by staff and teachers to shorten their urls.
 
 ## Project Readings
 
-Refer to [project readings](docs/project_readings.md)
+Refer to [project readings](docs/project-readings.md)
 
 ## Project Design
 
-Refer to [project design](docs/project_design.md)
+Refer to [project design](docs/project-design.md)
 
 ## Project Installation
 
-Refer to [project installation](docs/project_installation.md)
+Refer to [project installation](docs/project-installation.md)
 
 ## Project Development Workflow
 
-Refer to [project development workflow](docs/project_development_workflow.md)
+Refer to [project development workflow](docs/project-development-workflow.md)
 
 ## Project Naming Convention
 
-Refer to [project naming convention](docs/project_naming_convention.md)
+Refer to [project naming convention](docs/project-naming-convention.md)
 
 ## Project References
 
