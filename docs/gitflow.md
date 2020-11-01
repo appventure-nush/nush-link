@@ -33,6 +33,9 @@
    ```
    git push origin YOUR-NEW-BRANCH
    ```
+5. In your github. Click on create pull request
+   - Name the branch based on the naming convention
+
 5. Once the branch has been merged into the `main` branch do
    ```
    git pull origin main # Pull from github to main branch
