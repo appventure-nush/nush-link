@@ -28,7 +28,7 @@ Refer to [project development workflow](docs/project_development_workflow.md)
 
 ## Project Naming Convention
 
-Refer to [project naming convention](docs/projet_naming_convention.md)
+Refer to [project naming convention](docs/project_naming_convention.md)
 
 ## Project References
 
