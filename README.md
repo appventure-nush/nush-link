@@ -18,7 +18,7 @@ Refer to [project readings](docs/project_readings.md)
 
 Refer to [project design](docs/project_design.md)
 
-## Project installation
+## Project Installation
 
 Refer to [project installation](docs/project_installation.md)
 
