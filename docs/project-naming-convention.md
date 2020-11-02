@@ -5,5 +5,5 @@
     - lower case seperated by space
     > a cool pull request
 - Markdown file
-    - kebabcase (e.g. naming-convention.md)
+    - kebabcase
     > this-is-a-cool-markdown-file.md
