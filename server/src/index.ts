@@ -1,5 +1,5 @@
 // Require
-const express = require('express');
+import express from 'express';
 require('dotenv').config();
 
 // Init
@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 
 // define a route handler for the default home page
 app.get('/', (req: any, res: any) => {
-  res.send('Hello world!');
+  res.send('Good afternoon');
 });
 
 // start the Express server
