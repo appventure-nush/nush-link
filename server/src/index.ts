@@ -1,16 +1,17 @@
 // Require
 import express from 'express';
-require('dotenv').config();
+
+import PORT from './config/index';
 
 // Init
 const app = express();
 
 // Port
-const port = process.env.PORT || 5000;
+const port = PORT;
 
 // define a route handler for the default home page
-app.get('/', (req: any, res: any) => {
-  res.send('Good afternoon');
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.send('Good evening');
 });
 
 // start the Express server
