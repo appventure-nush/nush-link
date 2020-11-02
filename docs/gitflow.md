@@ -46,7 +46,9 @@
 
 5. In your github. Click on create pull request
 
-   - Name the branch based on the naming convention
+   - Name the branch based on the [naming convention](./project-naming-convention.md)
+
+   After which, add the appropriate tag onto the pull request before merging
 
 6. Once the branch has been merged into the `main` branch do
 
