@@ -25,8 +25,10 @@ Response
 
 ## Database
 SQL
+```
 CREATE TABLE urlredict (
     urlID INT NOT NULL,
     originalURL TEXT,
     urlAlias TEXT,
 );
+```
