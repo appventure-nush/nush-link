@@ -4,7 +4,7 @@ This markdown details the required technology and resources that you would need 
 
 ## Development
 
-1. Git:
+1. Git
    - Version control and place to store code
    - Git and GitHub crash course: [https://www.youtube.com/watch?v=RGOj5yH7evk](https://www.youtube.com/watch?v=RGOj5yH7evk)
 2. Markdown
@@ -35,3 +35,5 @@ This markdown details the required technology and resources that you would need 
    - Crash Course: [https://www.youtube.com/watch?v=L72fhGm1tfE](https://www.youtube.com/watch?v=L72fhGm1tfE)
 2. Sequelize
    - Express package to communciate with the backend server
+3. SQL
+   - The database language for this project
