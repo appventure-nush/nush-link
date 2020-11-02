@@ -36,7 +36,7 @@ SQL
 
 ```sql
 CREATE TABLE urlredict (
-    urlID INT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     originalURL TEXT NOT NULL,
     urlAlias TEXT NOT NULL,
     createdOn DATETIME NOT NULL,
