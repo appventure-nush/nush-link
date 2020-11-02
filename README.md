@@ -32,7 +32,7 @@ Refer to [project naming convention](docs/project-naming-convention.md)
 
 ## Project References
 
-Backend: [https://www.youtube.com/watch?v=SLpUKaAGnm-g](https://www.youtube.com/watch?v=SLpUKaAGnm-g)
+Backend: [https://www.youtube.com/watch?v=OoaTbS6bOhc](https://www.youtube.com/watch?v=OoaTbS6bOhc)
 
 ## Git flow
 
