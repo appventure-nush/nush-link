@@ -35,6 +35,7 @@
     2. Create a React App using `npx create-react-app name-of-app`
 3. SCSS (or Sass, Syntactically Awesome StyleSheets)
     - Scss allows usage of features that do not exist in normal CSS, improves the styling of the project
+    - 7 to 1 file structure for SCSS
     1. Download SCSS compiler, <b>Live Sass Compiler</b> extension via VSCode
     
 
