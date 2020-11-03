@@ -8,7 +8,8 @@
 2. Git and GitHub and GitBash
     - Git is a command used on the command line
     1. Download at: [https://git-scm.com/downloads](https://git-scm.com/downloads)
-    2. Set up Git credientials
+    2. Set up Git credientials on GitHub
+    3. Set up Git credientials on GitBash
 3.  Integrate GitHub and VSCode
     - Add GitBash as terminal instead of powershell, reference: https://code.visualstudio.com/docs/editor/github
     1. Go to File --> Preferences --> Settings --> Open Settings (Top Right 3rd button)
