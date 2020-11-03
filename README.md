@@ -6,7 +6,7 @@ A project by AppVenture
 
 ## Project Aim
 
-The aim of the project is to create a url shortner similar to https://tinyurl.com/ for NUSH
+The aim of the project is to create a url shortner similar to `https://tinyurl.com/` for NUSH
 
 This URL shortner will be used by staff and teachers to shorten their urls.
 
@@ -32,12 +32,13 @@ Refer to [project naming convention](docs/project-naming-convention.md)
 
 ## Project References
 
-Backend: https://www.youtube.com/watch?v=SLpUKaAGnm-g
+Backend: [https://www.youtube.com/watch?v=OoaTbS6bOhc](https://www.youtube.com/watch?v=OoaTbS6bOhc)
 
 ## Git flow
 
 Refer to the [gitflow](docs/gitflow.md)
 
 ## Coders
+
 (frostyLegend) David Goh Zhe Kai M20603
 Email: david.gohzhekai@gmail.com

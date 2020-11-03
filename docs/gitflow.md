@@ -10,37 +10,53 @@
 ## Work flow
 
 1. Create a new feature branch and run
-   ```
+
+   ```bash
    git checkout main
    git checkout -b YOUR-NEW-FEATURE
    ```
+
 2. Make changes and commit:
-   ```
+
+   ```bash
    git status
    ... lists out the list of changed files ...
    git add filenames
    ```
+
    Commit change
-   ```
+
+   ```bash
    git commit -m "your commit message here"
    ```
+
    - Make meaningful commit messages, describe what you did etc
+
 3. Try pulling from `main` and reoslve conflicts if they exist:
-   ```
+
+   ```bash
    git pull origin main
    ```
+
 4. Push to git
-   ```
+
+   ```bash
    git push origin YOUR-NEW-BRANCH
    ```
-5. In your github. Click on create pull request
-   - Name the branch based on the naming convention
 
-5. Once the branch has been merged into the `main` branch do
-   ```
+5. In your github. Click on create pull request
+
+   - Name the branch based on the [naming convention](./project-naming-convention.md)
+
+   After which, add the appropriate tag onto the pull request before merging
+
+6. Once the branch has been merged into the `main` branch do
+
+   ```bash
    git pull origin main # Pull from github to main branch
    git branch -d YOUR-NEW-BRANCH
    ```
+
 ## Useful commands
 
 1. `git status` : This shows you the files that have been modified and are "unstaged"

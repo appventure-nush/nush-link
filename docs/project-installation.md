@@ -3,11 +3,11 @@
 ## Installation developement setup
 
 1. VSCode
-    - VSCode is the IDE that will be used for this project
-    - Download at: https://code.visualstudio.com/download
+   - VSCode is the IDE that will be used for this project
+   - Download at: [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
 2. Git and GitHub and GitBash
     - Git is a command used on the command line
-    1. Download at: https://git-scm.com/downloads
+    1. Download at: [https://git-scm.com/downloads](https://git-scm.com/downloads)
     2. Set up Git credientials
 3.  Integrate GitHub and VSCode
     - Add GitBash as terminal instead of powershell, reference: https://code.visualstudio.com/docs/editor/github
@@ -16,7 +16,6 @@
     3. Refresh VSCode and use Ctrl+~ to view git terminal.
     - Add the GitHubs extension
     1. 5th Button on the left of VS Code, search and install Github and install <b>Github</b> and <b>Github Pull Requests and Issues</b>
-    
 4. Install project extensions for VSCode
     - Prettier
     - Eslint
@@ -40,3 +39,8 @@
 
 
 ## Installing the project (Back end)
+
+1. Install XAMPP
+   
+   - For hosting a local mysql server
+   - You can instead mysql instead of mariaDB in this link: [https://stackoverflow.com/questions/39654428/how-can-i-change-mariadb-to-mysql-in-xampp](https://stackoverflow.com/questions/39654428/how-can-i-change-mariadb-to-mysql-in-xampp)
