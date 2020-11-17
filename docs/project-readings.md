@@ -33,7 +33,7 @@ This markdown details the required technology and resources that you would need 
 1. Express
    - Back end library to run the backend server
    - Crash Course: [https://www.youtube.com/watch?v=L72fhGm1tfE](https://www.youtube.com/watch?v=L72fhGm1tfE)
-2. Sequelize
-   - Express package to communciate with the backend server
+2. mysql
+   - package for node to talk with sql: [https://www.npmjs.com/package/mysql]([https://www.npmjs.com/package/mysql)
 3. SQL
    - The database language for this project
