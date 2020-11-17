@@ -35,7 +35,7 @@ Response
 SQL
 
 ```sql
-CREATE TABLE urlredict (
+CREATE TABLE urlredirect (
     id INT NOT NULL AUTO_INCREMENT,
     originalURL TEXT NOT NULL,
     urlAlias TEXT NOT NULL,
