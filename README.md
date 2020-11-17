@@ -42,3 +42,5 @@ Refer to the [gitflow](docs/gitflow.md)
 
 (frostyLegend) David Goh Zhe Kai M20603
 Email: david.gohzhekai@gmail.com
+(Somebody-somewher) James Chin Jia Jun M20504
+Email: jameschin.jj@gmail.com
