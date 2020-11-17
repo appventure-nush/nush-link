@@ -1,13 +1,19 @@
-// Require
 import express from 'express';
+import mysql from 'mysql';
+import bodyParser from 'body-parser';
 
-import PORT from './config/index';
+import databaseConfig from './config/database';
+import appConfig from './config/index';
 
-// Init
+// Initialisation
 const app = express();
 
 // Port
-const port = PORT;
+const port = appConfig.PORT;
+
+// Body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // define a route handler for the default home page
 app.get('/', (req: express.Request, res: express.Response) => {
@@ -18,3 +24,14 @@ app.get('/', (req: express.Request, res: express.Response) => {
 app.listen(port, () => {
   console.log(`server is running at http://localhost:${port}`);
 });
+
+// test connection with database
+const connection = mysql.createConnection({
+  host: databaseConfig.DBHOST,
+  user: databaseConfig.DBUSER,
+  database: databaseConfig.DBDATABASE,
+});
+
+connection.connect();
+
+connection.end();
