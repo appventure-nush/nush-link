@@ -34,6 +34,7 @@
     1. Input `npm install -g create-react-app` into terminal
     2. Create a React App using `npx create-react-app name-of-app --template typescript`
     3. May need to install Material-UI `npm install @material-ui/core` for pre-made textfields and other components
+    4. The Vscode extension ES7 React is also quite helpful in creating React Functions. (Type `rfce`)
 3. SCSS (or Sass, Syntactically Awesome StyleSheets)
     - Scss allows usage of features that do not exist in normal CSS, improves the styling of the project
     - 7 to 1 file structure for SCSS
