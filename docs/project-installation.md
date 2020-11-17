@@ -48,3 +48,4 @@
    
    - For hosting a local mysql server
    - You can instead mysql instead of mariaDB in this link: [https://stackoverflow.com/questions/39654428/how-can-i-change-mariadb-to-mysql-in-xampp](https://stackoverflow.com/questions/39654428/how-can-i-change-mariadb-to-mysql-in-xampp)
+   > But this is not necessary
