@@ -1,3 +1,13 @@
+@font-face {
+  font-family: Proxima Nova SB;
+  src: url(./fonts/FontsFree-Net-Proxima-Nova-Sbold.otf);
+}
+
+@font-face {
+  font-family: SF Pro Display M;
+  src: url(./fonts/FontsFree-Net-SFProDisplay-Medium.ttf);
+}
+
 .App {
   text-align: center;
 }
@@ -49,7 +59,7 @@
 
 .App-circle_text {
   font-size: 3vmin;
-  font-family:  Verdana, Geneva, Tahoma, sans-serif ;
+  font-family:  SF Pro Display M;
   margin-top: -1vmin;
 }
 
@@ -60,8 +70,29 @@
 .App-bottom_bg {
   background: radial-gradient(#FFFFFF, #DEDEDE);
   min-height: 100vmin;
+  padding-top: 5vmin;
+  align-items: center;
 }
 
+.App-about_text {
+   font-family: Proxima Nova SB;
+   font-size: 4vmin;
+   margin-top: -0.5vmin;
+}
+
+.App-about_para {
+  font-family: SF Pro Display M;
+  font-size: 3vmin;
+  justify-self: center;
+}
+
+.App-custom_url {
+  font-family: Proxima Nova SB;
+}
+
+.App-col_1{
+  flex-direction: column;
+}
 /* .App-link {
   color: #61dafb;
 }
