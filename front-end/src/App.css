@@ -1,0 +1,76 @@
+.App {
+  text-align: center;
+}
+
+.App-logo_w {
+  height: 5vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 6vmin;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2vmin
+}
+
+.App-bg {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+
+  width: 100%;
+  object-fit: cover;
+}
+
+.bg-circle {
+  transform-origin: top;
+  position: absolute;
+  display: flex;
+  width: 50vmin;
+  height: 50vmin;
+  background-color: white;
+  opacity: 82%;
+  border-radius: 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  transform: translate(-50%, -110%);
+}
+
+.App-logo_g {
+  height: 10vmin;
+  width: 40vmin;
+  pointer-events: none;
+}
+
+.App-circle_text {
+  font-size: 3vmin;
+  font-family:  Verdana, Geneva, Tahoma, sans-serif ;
+  margin-top: -1vmin;
+}
+
+.App-Appventure {
+  color:#17A2B8;
+}
+
+.App-bottom_bg {
+  background: radial-gradient(#FFFFFF, #DEDEDE);
+  min-height: 100vmin;
+}
+
+/* .App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
