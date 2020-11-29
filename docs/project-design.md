@@ -10,17 +10,17 @@ Adobe XD Link:
 
 Query Arguements:
 
-- `originalURL`: The orginal url
+- `original`: The orginal url
 
-- `urlalias`: The new alias for redirect. If not specified, a random alias will be returned
+- `alias`: The new alias for redirect. If not specified, a random alias will be returned
 
 Response
 
-- `originalURL`: The orginal url
+- `original`: The orginal url
 
-- `urlalias`: The new alias for redirect.
+- `alias`: The new alias for redirect.
 
-`/<urlalias>`
+`/<alias>`
 
 Query Arguments:
 
@@ -28,7 +28,7 @@ Query Arguments:
 
 Response
 
-- `originalURL`: The original url
+- `original`: The original url
 
 ## Database
 
