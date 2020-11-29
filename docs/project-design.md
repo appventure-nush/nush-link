@@ -6,7 +6,7 @@ Adobe XD Link:
 
 ## API
 
-`/createRedirect`
+`/create`
 
 Query Arguements:
 
