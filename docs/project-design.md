@@ -37,9 +37,9 @@ SQL
 ```sql
 CREATE TABLE urlredirect (
     id INT NOT NULL AUTO_INCREMENT,
-    originalURL TEXT NOT NULL,
-    urlAlias TEXT NOT NULL,
+    original TEXT NOT NULL,
+    alias TEXT NOT NULL,
     createdOn DATETIME NOT NULL,
-    PRIMARY KEY(ID)
+    PRIMARY KEY(id)
 );
 ```
