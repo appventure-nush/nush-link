@@ -8,6 +8,44 @@
   src: url(./fonts/FontsFree-Net-SFProDisplay-Medium.ttf);
 }
 
+@font-face {
+  font-family: SF Pro Display B;
+  src: url(./fonts/FontsFree-Net-SFProDisplay-Bold.ttf);
+}
+
+h1 {
+  font-family: Proxima Nova SB;
+  color: #476457;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Proxima Nova SB;
+  font-size: 2em;
+  margin-top: 3em;
+  align-self: flex-start;
+}
+
+p {
+  font-family: SF Pro Display M;
+}
+
+button {
+  font-family: SF Pro Display B;
+  font-style: bold;
+  color: #707070;
+  margin-top: 10vmin;
+  font-size: 2em;
+  width: 10em;
+  height: 2.5em;
+  border-radius: 20px;
+  background-image: linear-gradient( #ECE9E9 45%, #E5E5E5 55%);
+  box-shadow: 0 2px 2px #888888;
+  transition: color 0.3s, background-image 0.5s, ease-in-out;
+  
+}
+
+
 .App {
   text-align: center;
 }
@@ -59,7 +97,6 @@
 
 .App-circle_text {
   font-size: 3vmin;
-  font-family:  SF Pro Display M;
   margin-top: -1vmin;
 }
 
@@ -69,29 +106,67 @@
 
 .App-bottom_bg {
   background: radial-gradient(#FFFFFF, #DEDEDE);
-  min-height: 100vmin;
-  padding-top: 5vmin;
+  min-height: 90vmin;
+  padding: 5vmin;
   align-items: center;
 }
 
 .App-about_text {
-   font-family: Proxima Nova SB;
-   font-size: 4vmin;
    margin-top: -0.5vmin;
+
 }
 
 .App-about_para {
-  font-family: SF Pro Display M;
-  font-size: 3vmin;
+  font-size: 2em;
   justify-self: center;
 }
 
 .App-custom_url {
-  font-family: Proxima Nova SB;
+  margin-top: 2em;
+  
 }
 
-.App-col_1{
+.App-row_element {
+  display: flex;
+  flex-direction: row;
+  
+  justify-content: center;
+}
+
+.App-col{
+  display: flex;
   flex-direction: column;
+  width: 40%;
+}
+
+.App-link_image {
+  width: 5em;
+  height: 5em;
+  margin-top: 15em;
+  margin-left: 6em;
+  margin-right: 6em;
+}
+
+
+.App-row_nushlink {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+}
+
+.App-footer{
+  background-color: #282c34;
+  min-height: 20vmin;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1vmin
+}
+
+.App-credits {
+  color: white;
+  text-align: right;
+  font-size: 2vmin;
 }
 /* .App-link {
   color: #61dafb;
