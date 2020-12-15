@@ -1,0 +1,24 @@
+@font-face {
+    font-family: Proxima Nova SB;
+    src: url(../fonts/FontsFree-Net-Proxima-Nova-Sbold.otf);
+  }
+  
+  @font-face {
+    font-family: SF Pro Display M;
+    src: url(../fonts/FontsFree-Net-SFProDisplay-Medium.ttf);
+  }
+  
+  @font-face {
+    font-family: SF Pro Display B;
+    src: url(../fonts/FontsFree-Net-SFProDisplay-Bold.ttf);
+  }
+
+@mixin bg_gradient {
+  background-color: radial-gradient(#FFFFFF, #DEDEDE);
+}
+
+$Prox: Proxima Nova SB;
+$SF-Pro-M: SF Pro Display M;
+$SF-Pro-B: SF Pro Display B;
+
+$head-colour: #282c34;
