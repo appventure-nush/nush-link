@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import { PORT } from './config/app';
 import setupDatabase from './config/setupdatabase';
 import create from './routes/create';
+import retrieve from './routes/retrieve';
 
 // Initialisation
 const app = express();
@@ -31,10 +32,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 app.post('/create', create);
 
 // define a route handler for ids
-app.get('/:id', (req: express.Request, res: express.Response) => {
-  // TODO: redirect to url
-  res.send('redirecting to your url');
-});
+app.get('/:alias', retrieve);
 
 // Route for error handling
 app.use(

@@ -1,6 +1,6 @@
-const DBHOST = 'localhost';
-const DBUSER = 'root';
-const DBDATABASE = 'nushlink';
-const DBURLREDIRECTTABLE = 'urlredirect';
+const DB_HOST = 'localhost';
+const DB_USER = 'root';
+const DB_DATABASE = 'nushlink';
+const DB_URL_REDIRECT_TABLE = 'urlredirect';
 
-export { DBHOST, DBUSER, DBDATABASE, DBURLREDIRECTTABLE };
+export { DB_HOST, DB_USER, DB_DATABASE, DB_URL_REDIRECT_TABLE };

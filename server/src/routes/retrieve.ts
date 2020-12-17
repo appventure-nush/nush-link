@@ -1,6 +1,5 @@
 import express from 'express';
 import * as yup from 'yup';
-import uniqid from 'uniqid';
 import mysql from 'mysql';
 
 import {
@@ -10,25 +9,25 @@ import {
   DB_URL_REDIRECT_TABLE,
 } from '../config/database';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const schema = yup.object().shape({
   alias: yup
     .string()
     .trim()
+    .lowercase()
     .matches(/[\w\-]/i),
-  original: yup.string().trim().url().required(),
 });
 
-router.post(
-  '/create',
+router.get(
+  '/:alias',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    var { alias, original } = req.query;
+    console.log(req.params);
+    const alias = req.params.alias;
     try {
       try {
         schema.validate({
           alias,
-          original,
         });
       } catch (error) {
         res.json({
@@ -36,12 +35,6 @@ router.post(
           message: 'error during yup validation',
         });
       }
-
-      if (!alias) {
-        alias = uniqid();
-      }
-
-      alias = alias.toString().toLowerCase();
 
       const connection = mysql.createConnection({
         host: DB_HOST,
@@ -52,29 +45,34 @@ router.post(
       connection.connect();
 
       connection.query(
-        `INSERT INTO ${DB_URL_REDIRECT_TABLE} (original, alias, createdOn) VALUES (${mysql.escape(
-          original
-        )}, ${mysql.escape(alias)}, CURRENT_TIMESTAMP);`,
+        `SELECT original FROM ${DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
+          alias
+        )};`,
         (error, result) => {
           if (error) {
             res.json({
               success: 'false',
-              message: 'error during sql',
+              message: 'error',
             });
-          }
-          if (result) {
-            res.json({
-              success: true,
-              original,
-              alias,
-            });
+          } else {
+            if (result.length == 1) {
+              res.json({
+                success: true,
+                url: result[0].original,
+              });
+            } else {
+              res.json({
+                success: false,
+                error: 'no alias found',
+              });
+            }
           }
         }
       );
     } catch (error) {
       res.json({
         success: false,
-        message: 'error in express',
+        message: 'there was some issue',
       });
     }
   }
