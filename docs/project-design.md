@@ -40,6 +40,6 @@ CREATE TABLE urlredirect (
     original TEXT NOT NULL,
     alias TEXT NOT NULL,
     createdOn DATETIME NOT NULL,
-    PRIMARY KEY(id) UNIQUE (id, alias)
+    UNIQUE(alias)
 );
 ```
