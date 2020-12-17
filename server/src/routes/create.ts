@@ -10,7 +10,7 @@ import {
   DBURLREDIRECTTABLE,
 } from '../config/database';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const schema = yup.object().shape({
   alias: yup
@@ -20,41 +20,29 @@ const schema = yup.object().shape({
   original: yup.string().trim().url().required(),
 });
 
-const checkDatabase = (
-  connection: mysql.Connection,
-  alias: String,
-  callback: Function
-) => {
-  connection.query(
-    `SELECT * FROM ${DBURLREDIRECTTABLE} WHERE alias=${mysql.escape(alias)};`,
-    (error, result) => {
-      if (error) callback(error);
-      callback(null, result > 0);
-    }
-  );
-};
-
 router.post(
   '/create',
-  async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    var { alias, original } = req.body;
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    var { alias, original } = req.query;
     try {
-      await schema.validate({
-        alias,
-        original,
-      });
+      try {
+        schema.validate({
+          alias,
+          original,
+        });
+      } catch (error) {
+        res.json({
+          success: false,
+          message: 'error during yup validation',
+        });
+      }
 
       if (!alias) {
         alias = uniqid();
       }
 
-      alias = alias.toLowerCase();
+      alias = alias.toString().toLowerCase();
 
-      // test connection with database
       const connection = mysql.createConnection({
         host: DBHOST,
         user: DBUSER,
@@ -63,22 +51,31 @@ router.post(
 
       connection.connect();
 
-      checkDatabase(connection, alias, (err: any, result: Boolean) => {
-        if (err) throw err;
-        if (result) {
-          res.json({
-            alias,
-            original,
-            ok: false,
-            errors: 'alias exists',
-          });
-        } else {
+      connection.query(
+        `INSERT INTO ${DBURLREDIRECTTABLE} (original, alias, createdOn) VALUES (${mysql.escape(
+          original
+        )}, ${mysql.escape(alias)}, CURRENT_TIMESTAMP);`,
+        (error, result) => {
+          if (error) {
+            res.json({
+              success: 'false',
+              message: 'error',
+            });
+          }
+          if (result) {
+            res.json({
+              success: true,
+              original,
+              alias,
+            });
+          }
         }
-      });
-
-      console.log('am I reached?');
+      );
     } catch (error) {
-      next(error);
+      res.json({
+        success: false,
+        message: 'there was some issue',
+      });
     }
   }
 );

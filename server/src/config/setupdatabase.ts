@@ -22,7 +22,8 @@ function setupDatabase() {
       original TEXT NOT NULL,
       alias TEXT NOT NULL,
       createdOn DATETIME NOT NULL,
-      PRIMARY KEY(id)
+      PRIMARY KEY(id),
+      UNIQUE(alias)
   );`,
     (error) => {
       if (error) throw error;
