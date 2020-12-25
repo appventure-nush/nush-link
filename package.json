@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@types/mysql": "^2.15.16",
+    "mysql": "^2.18.1"
+  }
+}

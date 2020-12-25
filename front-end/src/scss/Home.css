@@ -13,6 +13,24 @@
   src: url(../fonts/FontsFree-Net-SFProDisplay-Bold.ttf);
 }
 
+h1 {
+  font-family: Proxima Nova SB;
+  color: #476457;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Proxima Nova SB;
+  font-size: 2em;
+  margin-top: 3em;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+p {
+  font-family: SF Pro Display M;
+}
+
 @font-face {
   font-family: Proxima Nova SB;
   src: url(../fonts/FontsFree-Net-Proxima-Nova-Sbold.otf);
@@ -26,6 +44,24 @@
 @font-face {
   font-family: SF Pro Display B;
   src: url(../fonts/FontsFree-Net-SFProDisplay-Bold.ttf);
+}
+
+h1 {
+  font-family: Proxima Nova SB;
+  color: #476457;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Proxima Nova SB;
+  font-size: 2em;
+  margin-top: 3em;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+p {
+  font-family: SF Pro Display M;
 }
 
 .Home {
@@ -71,6 +107,24 @@
   src: url(../fonts/FontsFree-Net-SFProDisplay-Bold.ttf);
 }
 
+h1 {
+  font-family: Proxima Nova SB;
+  color: #476457;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Proxima Nova SB;
+  font-size: 2em;
+  margin-top: 3em;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+p {
+  font-family: SF Pro Display M;
+}
+
 .Home-imagebg {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -109,6 +163,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin-top: 8vmin;
 }
 
 .Home-logo_g {
@@ -126,6 +181,17 @@
   color: #17A2B8;
 }
 
+.Appventure_btn {
+  width: 2vmin;
+}
+
+.Home-app-btn {
+  width: 5vmin;
+  height: 5vmin;
+  position: fixed;
+  right: 5vmin;
+}
+
 @font-face {
   font-family: Proxima Nova SB;
   src: url(../fonts/FontsFree-Net-Proxima-Nova-Sbold.otf);
@@ -141,10 +207,28 @@
   src: url(../fonts/FontsFree-Net-SFProDisplay-Bold.ttf);
 }
 
+h1 {
+  font-family: Proxima Nova SB;
+  color: #476457;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Proxima Nova SB;
+  font-size: 2em;
+  margin-top: 3em;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+p {
+  font-family: SF Pro Display M;
+}
+
 .Home-bottom_bg {
-  background: radial-gradient(#FFFFFF, #DEDEDE);
-  min-height: 90vmin;
+  background-image: radial-gradient(#FFFFFF, #DEDEDE);
   padding: 5vmin;
+  min-height: 90vmin;
 }
 
 .Home-about_para {
@@ -238,33 +322,10 @@
   transition: color 0.3s, background-image 0.5s, ease-in-out;
 }
 
-h1 {
-  font-family: Proxima Nova SB;
-  color: #476457;
-  font-size: 3em;
-}
-
-h2 {
-  font-family: Proxima Nova SB;
-  font-size: 2em;
-  margin-top: 3em;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
-p {
-  font-family: SF Pro Display M;
-}
-
 button {
   font-family: SF Pro Display B;
-  font-style: bold;
-  color: #707070;
-  margin-top: 10vmin;
-  font-size: 2em;
   width: 10em;
   height: 2.5em;
-  border-radius: 20px;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(45%, #ECE9E9), color-stop(55%, #E5E5E5));
   background-image: linear-gradient(#ECE9E9 45%, #E5E5E5 55%);
   -webkit-box-shadow: 0 2px 2px #888888;

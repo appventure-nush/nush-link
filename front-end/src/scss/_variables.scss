@@ -14,11 +14,30 @@
   }
 
 @mixin bg_gradient {
-  background-color: radial-gradient(#FFFFFF, #DEDEDE);
+  background-image: radial-gradient(#FFFFFF, #DEDEDE);
+  padding: 5vmin;
 }
+
 
 $Prox: Proxima Nova SB;
 $SF-Pro-M: SF Pro Display M;
 $SF-Pro-B: SF Pro Display B;
 
 $head-colour: #282c34;
+
+h1 {
+  font-family: $Prox;
+  color: #476457;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: $Prox;
+  font-size: 2em;
+  margin-top: 3em;
+  align-self: flex-start;
+}
+
+p {
+  font-family: $SF-Pro-M;
+}

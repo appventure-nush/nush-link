@@ -2,14 +2,15 @@ import React from 'react'
 
 import logo_w from './sprites/nushlink-logo_w.svg';
 import logo_g from './sprites/nushlink-logo_g.svg';
-import bg from './sprites/school-bg.png';
 import abt from './sprites/about.svg';
 import link from './sprites/chain.svg';
 import logo_nush from './sprites/nushigh_logo.svg';
+import app_btn from './sprites/appventure_btn.svg';
 import './scss/Home.css';
-import {Link} from "react-router-dom";
 
-import { TextField, Button } from '@material-ui/core';
+import Appventure_Icon from './Appventure_Icon';
+import {Link} from "react-router-dom";
+import { TextField, Button, IconButton } from '@material-ui/core';
 
 function myfunction() {
     console.log("CLICKED");
@@ -24,7 +25,7 @@ function Home() {
                 <img src={logo_w} className="Home-logo_w" alt=""/>
             </div>
   
-            {/* Image and Circle */}
+            {/* Middle */}
             <div className="Home-imagebg">
                 <div className="Home-bg-circle">
                     <img src={logo_g} className="Home-logo_g" alt="logo" />
@@ -32,6 +33,11 @@ function Home() {
                         <span className="Home-Appventure"> AppVenture </span> 
                         Project</p>
                 </div>
+
+                <a href="https://nush.app/" target="_blank" rel="noopener noreferrer" >
+                    <img src={app_btn} className="Home-app-btn" alt=""/>
+                </a>
+
             </div>
 
             {/* Bottom portion */}
@@ -69,7 +75,9 @@ function Home() {
                 </Button>
             </div>
             <div className= "Home-footer">
+                <a href="https://www.nushigh.edu.sg/" target="_blank" rel="noopener noreferrer">
                 <img src={logo_nush} className="Home-nush_logo"/>
+                </a>
                 <div className= "Home-credits">
                     <p>Developed by:  David Goh Zhe Kai</p>
                     <p>James Chin Jia Jun</p>

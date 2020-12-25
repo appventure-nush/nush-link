@@ -1,9 +1,9 @@
 @import "./variables";
 
 .Home-bottom_bg {
-    background: radial-gradient(#FFFFFF, #DEDEDE);
+    @include bg_gradient();
     min-height: 90vmin;
-    padding: 5vmin;
+
 
   }
   

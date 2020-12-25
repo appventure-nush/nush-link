@@ -5,9 +5,9 @@ import AppLogo from './sprites/appventure-logo.svg'
 
 function Appventure_Icon() {
     return (
-        <div>
-            
-        </div>
+    <Icon>
+        <img src={AppLogo} height={25} width={25}/>
+    </Icon>
     )
 }
 
