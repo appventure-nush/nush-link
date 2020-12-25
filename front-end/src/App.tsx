@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import Loading from './Loading';
 import Home from './Home';
+import Success from './Success';
 
 const state = {
   url: '',
@@ -18,8 +19,12 @@ function App() {
     <Router>
       <Route path="/" exact component={Home} />
       <Route path="/Loading" component={Loading} />
-      
-    </Router>
+      <Route path="/Success" component={Success} />
+      <Route path='/AppVenture' component={() => { 
+        window.location.href = 'https://nush.app/'; 
+        return null;
+      }}/>
+      </Router>
   );
 }
 

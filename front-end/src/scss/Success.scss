@@ -1,0 +1,98 @@
+@import "./variables";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+.Success-bg {
+    @include bg_gradient();
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    width: 100vw;
+    align-content: center;
+}
+
+.Success-logo_g {
+    height: 7.3em;
+    align-self: center;
+}
+
+.Success-accepted {
+    margin-top: 2em;
+    height: 12em;
+}
+
+.Success-headline {
+    font-size: 3em;
+    align-self: center;
+}
+
+.Success-row { 
+    display: flex;
+    align-self: center;
+}
+
+.Success-link {
+    font-size: 2em;
+    margin-right: 1em;
+}
+
+.Success-thank {
+    align-self: center;
+    font-size: 2em;
+    font-family: $Prox;
+    color: gray;
+}
+
+.test {
+
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    align-self: center;
+}
+
+.Success-row2 {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    margin-right: 3vmin;
+}
+
+.Success-row3 {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    margin-left: 3vmin;
+}
+
+.Success-left_text{
+    flex-wrap: wrap;
+    width: 12vmin;
+}
+
+.Success-right_text{
+    flex-wrap: wrap;
+    width: 12vmin;
+}
+
+.Success-Appventure_btn {
+    align-self: start;
+}
+
+.Success-app_logo {
+    width: 6vmin;
+    margin-right: 1em;
+}
+
+.Success-again {
+    width: 5vmin;
+    margin-right: 1em;
+}
