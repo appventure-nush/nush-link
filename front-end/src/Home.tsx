@@ -16,6 +16,24 @@ function myfunction() {
     console.log("CLICKED");
   }
 
+  function add_link() {
+    alert("CLICKED");
+    
+    fetch("http://localhost:5000/create?alias=test&original=https://www.coolmathgames.com/", {
+        method: "POST",
+    
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    // Converting to JSON 
+    .then(response => response.json()) 
+  
+    // Displaying results to console  
+    .then(json => console.log(json)); 
+}
+
+// component={Link} to="/Loading"
 function Home() {
     return (
         <div className="Home">
@@ -70,7 +88,7 @@ function Home() {
                         </div>     
                     </div>
                 </div>
-                <Button className="Home-btn_create_url" style={{marginTop: '2em', fontSize: '2em', borderRadius: '20px'}} component={Link} to="/Loading">
+                <Button className="Home-btn_create_url" style={{marginTop: '2em', fontSize: '2em', borderRadius: '20px'}} onClick={() => { add_link() }}>
                 Create URL!
                 </Button>
             </div>
