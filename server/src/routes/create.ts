@@ -22,20 +22,17 @@ const schema = yup.object().shape({
 
 router.post(
   '/create',
-  (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    var { alias, original } = req.query;
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      try {
-        schema.validate({
-          alias,
-          original,
-        });
-      } catch (error) {
-        res.json({
-          success: false,
-          message: 'error during yup validation',
-        });
-      }
+      var { alias, original } = req.query;
+      await schema.validate({
+        alias,
+        original,
+      });
 
       if (!alias) {
         alias = uniqid();
@@ -51,17 +48,12 @@ router.post(
 
       connection.connect();
 
-      connection.query(
+      await connection.query(
         `INSERT INTO ${DB_URL_REDIRECT_TABLE} (original, alias, createdOn) VALUES (${mysql.escape(
           original
         )}, ${mysql.escape(alias)}, CURRENT_TIMESTAMP);`,
         (error, result) => {
-          if (error) {
-            res.json({
-              success: 'false',
-              message: 'error during sql',
-            });
-          }
+          if (error) throw new Error('Error during sql');
           if (result) {
             res.json({
               success: true,
@@ -72,10 +64,7 @@ router.post(
         }
       );
     } catch (error) {
-      res.json({
-        success: false,
-        message: 'error in express',
-      });
+      next(error);
     }
   }
 );
