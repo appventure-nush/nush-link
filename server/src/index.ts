@@ -49,8 +49,8 @@ app.use(
       res.status(500);
     }
     res.json({
+      success: false,
       message: error.message,
-      stack: error.stack,
     });
   }
 );

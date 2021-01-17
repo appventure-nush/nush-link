@@ -21,20 +21,16 @@ const schema = yup.object().shape({
 
 router.get(
   '/:alias',
-  (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log(req.params);
-    const alias = req.params.alias;
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      try {
-        schema.validate({
-          alias,
-        });
-      } catch (error) {
-        res.json({
-          success: false,
-          message: 'error during yup validation',
-        });
-      }
+      const alias = req.params.alias;
+      await schema.validate({
+        alias,
+      });
 
       const connection = mysql.createConnection({
         host: DB_HOST,
@@ -44,36 +40,24 @@ router.get(
 
       connection.connect();
 
-      connection.query(
+      await connection.query(
         `SELECT original FROM ${DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
           alias
         )};`,
         (error, result) => {
-          if (error) {
+          if (error) throw new Error('Error during sql');
+          if (result.length == 1) {
             res.json({
-              success: 'false',
-              message: 'error',
+              success: true,
+              url: result[0].original,
             });
           } else {
-            if (result.length == 1) {
-              res.json({
-                success: true,
-                url: result[0].original,
-              });
-            } else {
-              res.json({
-                success: false,
-                error: 'no alias found',
-              });
-            }
+            throw new Error('No alias found');
           }
         }
       );
     } catch (error) {
-      res.json({
-        success: false,
-        message: 'there was some issue',
-      });
+      next(error);
     }
   }
 );
