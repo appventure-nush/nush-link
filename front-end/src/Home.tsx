@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import logo_w from './sprites/nushlink-logo_w.svg';
 import logo_g from './sprites/nushlink-logo_g.svg';
@@ -16,7 +16,63 @@ function myfunction() {
     console.log("CLICKED");
   }
 
-function Home() {
+function Home(props : any) {
+    const {history} = props;
+    const [original, setOriginal] = useState("");
+    const [alias, setAlias] = useState("")
+    const [errorVisibility, setErrVisibility] = useState(false);
+    const [errorMsg, setErrMsg] = useState("");
+
+    const getOriLink=(e: React.ChangeEvent<HTMLInputElement>)=>{
+        setOriginal(e.target.value);
+        setErrMsg("");
+        setErrVisibility(false);
+    }
+
+    const getAliasLink=(e: React.ChangeEvent<HTMLInputElement>)=>{
+        setAlias(e.target.value);
+        setErrMsg("Unknown Error");
+        setErrVisibility(false);
+    }
+
+    function CheckError(response : Response) {
+        if (response.status >= 200 && response.status <= 299) {
+            console.log("Test");
+            setErrMsg("Unknown Error");
+            setErrVisibility(true);
+        } else {
+          //throw Error(response.statusText);
+          console.log("Hello");
+          //setError(true);
+          //setErrormsg("Invalid!")
+        }
+      }
+      
+    function add_link() {
+        
+        fetch(`http://localhost:5000/create?alias=${alias}&original=${original}`, {
+            method: "POST",
+         
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            } 
+        })
+
+        .then(response => response.json())
+        .then((data) => {
+            if (data.success == false){
+                if (typeof data.message !== 'undefined'){
+                    console.log(data.message);
+                    setErrMsg(data.message);
+                    setErrVisibility(true);
+                }
+            } else {
+                props.history.push('/Success')
+            }
+        })
+    }
+
+
     return (
         <div className="Home">
   
@@ -57,6 +113,9 @@ function Home() {
                         label="Original URL"
                         inputProps={{style: {fontSize: '2em'}}}
                         InputLabelProps={{style: {fontSize: '2em'}}}
+                        onChange={getOriLink}
+                        error={errorVisibility}
+                        helperText={errorMsg}
                         />
                     </div>
                     <img src={link} className="Home-link_image" alt=""/>
@@ -66,11 +125,12 @@ function Home() {
                             <p className="Home-link">https://nush.link/</p>
                             <TextField id="standard-basic"
                             inputProps={{style: {fontSize: '2em'}}}
+                            onChange={getAliasLink}
                             />
                         </div>     
                     </div>
                 </div>
-                <Button className="Home-btn_create_url" style={{marginTop: '2em', fontSize: '2em', borderRadius: '20px'}} component={Link} to="/Loading">
+                <Button className="Home-btn_create_url" style={{marginTop: '2em', fontSize: '2em', borderRadius: '20px'}} onClick={() => { add_link() }}>
                 Create URL!
                 </Button>
             </div>
