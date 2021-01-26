@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import { History } from 'history';
 import logo_w from './sprites/nushlink-logo_w.svg';
 import logo_g from './sprites/nushlink-logo_g.svg';
 import abt from './sprites/about.svg';
@@ -12,14 +12,15 @@ import Appventure_Icon from './Appventure_Icon';
 import {Link} from "react-router-dom";
 import { TextField, Button, IconButton } from '@material-ui/core';
 
-function myfunction() {
-    console.log("CLICKED");
+  interface aliasProps {
+      history: any;
+      alias: string;
+      setAlias_h(alais_link:string): any;
   }
 
-function Home(props : any) {
-    const {history} = props;
+function Home(props : aliasProps) {
     const [original, setOriginal] = useState("");
-    const [alias, setAlias] = useState("")
+    //const [alias, setAlias] = useState("")
     const [errorVisibility, setErrVisibility] = useState(false);
     const [errorMsg, setErrMsg] = useState("");
 
@@ -30,7 +31,8 @@ function Home(props : any) {
     }
 
     const getAliasLink=(e: React.ChangeEvent<HTMLInputElement>)=>{
-        setAlias(e.target.value);
+        //setAlias(e.target.value);
+        props.setAlias_h(e.target.value);
         setErrMsg("Unknown Error");
         setErrVisibility(false);
     }
@@ -50,7 +52,7 @@ function Home(props : any) {
       
     function add_link() {
         
-        fetch(`http://localhost:5000/create?alias=${alias}&original=${original}`, {
+        fetch(`http://localhost:5000/create?alias=${props.alias}&original=${original}`, {
             method: "POST",
          
             headers: {
@@ -67,6 +69,7 @@ function Home(props : any) {
                     setErrVisibility(true);
                 }
             } else {
+                console.log("Success!")
                 props.history.push('/Success')
             }
         })
