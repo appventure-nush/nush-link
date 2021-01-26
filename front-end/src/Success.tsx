@@ -10,22 +10,15 @@ import Appventure_Icon from './Appventure_Icon';
 import {Link} from "react-router-dom";
 import { IconButton } from '@material-ui/core';
 
-function copyMessage(val: string){
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-  }
+
+interface AliasProps{
+    alias : string;
+}
 
 
-function Success() {
+
+function Success(props : AliasProps) {
+
     return (
         <div className="Success">
             <div className="Success-bg">            
@@ -33,8 +26,8 @@ function Success() {
                 <img src={accepted}  className="Success-accepted" alt=""/>
                 <h1 className="Success-headline">Huzzah! We've successfully created your custom link!!</h1>
                 <div className="Success-row">
-                    <a href="https://nush.app/" target="_blank" rel="noopener noreferrer" >
-                        <p className="Success-link">https://nushlink.com/biochem</p>
+                    <a href={`https://nushlink.com/${props.alias}`} target="_blank" rel="noopener noreferrer" >
+                        <p className="Success-link">{`https://nushlink.com/${props.alias}`}</p>
                     </a>
                     <img src={copy}  className="Success-Copy" alt=""/>
                 </div>
