@@ -18,7 +18,6 @@ interface AliasProps{
 
 
 function Success(props : AliasProps) {
-
     return (
         <div className="Success">
             <div className="Success-bg">            
@@ -26,8 +25,8 @@ function Success(props : AliasProps) {
                 <img src={accepted}  className="Success-accepted" alt=""/>
                 <h1 className="Success-headline">Huzzah! We've successfully created your custom link!!</h1>
                 <div className="Success-row">
-                    <a href={`https://nushlink.com/${props.alias}`} target="_blank" rel="noopener noreferrer" >
-                        <p className="Success-link">{`https://nushlink.com/${props.alias}`}</p>
+                    <a href={`http://localhost:5000/${props.alias}`} target="_blank" rel="noopener noreferrer" >
+                        <p className="Success-link">{`https://nush.link/${props.alias}`}</p>
                     </a>
                     <img src={copy}  className="Success-Copy" alt=""/>
                 </div>

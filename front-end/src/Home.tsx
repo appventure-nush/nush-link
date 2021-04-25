@@ -62,15 +62,15 @@ function Home(props : aliasProps) {
 
         .then(response => response.json())
         .then((data) => {
-            if (data.success == false){
-                if (typeof data.message !== 'undefined'){
+            if (data.success) {
+                console.log("Success!")
+                props.history.push('/Success')
+            } else {
+                if (typeof data.message !== 'undefined') {
                     console.log(data.message);
                     setErrMsg(data.message);
                     setErrVisibility(true);
                 }
-            } else {
-                console.log("Success!")
-                props.history.push('/Success')
             }
         })
     }

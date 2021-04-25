@@ -23,10 +23,6 @@ const port = PORT;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// define a route handler for the default home page
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.send('Good evening!');
-});
 
 // define a route to handle creation
 app.post('/create', create);
@@ -41,7 +37,6 @@ app.use(
     error: any,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
   ) => {
     if (error.status) {
       res.status(error.status);
