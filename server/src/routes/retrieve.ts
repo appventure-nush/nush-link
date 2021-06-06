@@ -1,16 +1,14 @@
 import express from 'express';
 import * as yup from 'yup';
 import mysql from 'mysql';
-import { connection, DB_URL_REDIRECT_TABLE } from '../config/database';
+import connection from '../config/database';
+import config from '../config/config';
+import filter from '../util/filter';
 
 const router = express.Router({ mergeParams: true });
 
 const schema = yup.object().shape({
-  alias: yup
-    .string()
-    .trim()
-    .lowercase()
-    .matches(/[\w-]/i),
+  alias: filter.aliasFilter,
 });
 
 router.get(
@@ -27,7 +25,7 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original FROM ${DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
+        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
           alias,
         )};`,
         (error, result) => {
@@ -59,7 +57,7 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original FROM ${DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
+        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
           alias,
         )};`,
         (error, result) => {

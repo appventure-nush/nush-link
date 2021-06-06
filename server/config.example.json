@@ -1,0 +1,8 @@
+{
+  "DB_HOST": "localhost",
+  "DB_USER": "root",
+  "DB_DATABASE": "nushlink",
+  "DB_URL_REDIRECT_TABLE": "urlredirect",
+  "DB_PASSWORD": "[redacted]",
+  "PORT": 5000
+}

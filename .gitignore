@@ -4,3 +4,4 @@ server/node_modules
 server/built
 /node_modules/
 /.idea
+/server/config.json

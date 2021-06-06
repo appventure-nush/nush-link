@@ -4,21 +4,24 @@
   "description": "server code for nush-link",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint",
-    "start": "tsc-watch --onSuccess \"babel-node built/index.js\"",
+    "start:dev": "tsnd --watch src --respawn  --transpile-only --rs src/index.ts",
+    "start": "node ./built/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/appventure-nush/nush-link.git"
   },
-  "author": "AppVenture (David Goh Zhe Kai M20603)",
+  "author": "AppVenture",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/appventure-nush/nush-link/issues"
   },
   "homepage": "https://github.com/appventure-nush/nush-link#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^4.2.0",
@@ -47,11 +50,7 @@
     "eslint": "^7.12.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.1.2",
+    "ts-node-dev": "^1.1.6",
     "tsc-watch": "^4.2.9",
     "tslint": "^6.1.3",
     "typescript": "^3.9.7"
