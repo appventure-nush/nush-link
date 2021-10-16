@@ -1,10 +1,9 @@
-import express, { Application, NextFunction } from 'express';
+import express, { NextFunction } from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
 
-import auth from './auth/middleware';
 import setupDatabase from './config/setupdatabase';
 import create from './routes/create';
 import retrieve from './routes/retrieve';
@@ -14,25 +13,19 @@ import HttpException from './exceptions/HttpException';
 // Initialisation
 const app = express();
 
-// Security
 app.use(helmet());
 app.use(morgan('tiny'));
-
-// Cookies
-app.use(cookieParser());
+app.use(cors());
 
 // Body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Authentication required to create
-app.use('/create', auth() as Application);
 // define a route to handle creation
 app.post('/create', create);
 
 // define a route handler for ids
 app.get('/:alias', retrieve);
-app.get('/:alias/data', retrieve);
 
 // Route for error handling
 app.use(

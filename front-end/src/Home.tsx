@@ -49,19 +49,15 @@ function Home(props : aliasProps) {
           //setErrormsg("Invalid!")
         }
       }
-
+      
     function add_link() {
-
-        fetch(`/create`, {
+        
+        fetch(`http://localhost:5000/create?alias=${props.alias}&original=${original}`, {
             method: "POST",
-
+         
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
-            },
-            body: JSON.stringify({
-                alias: props.alias,
-                original: original,
-            })
+            } 
         })
 
         .then(response => response.json())
@@ -82,18 +78,18 @@ function Home(props : aliasProps) {
 
     return (
         <div className="Home">
-
+  
             {/* Header */}
             <div className="Home-header">
                 <img src={logo_w} className="Home-logo_w" alt=""/>
             </div>
-
+  
             {/* Middle */}
             <div className="Home-imagebg">
                 <div className="Home-bg-circle">
                     <img src={logo_g} className="Home-logo_g" alt="logo" />
-                    <p className = "Home-circle_text">an
-                        <span className="Home-Appventure"> AppVenture </span>
+                    <p className = "Home-circle_text">an 
+                        <span className="Home-Appventure"> AppVenture </span> 
                         Project</p>
                 </div>
 
@@ -106,17 +102,17 @@ function Home(props : aliasProps) {
             {/* Bottom portion */}
             <div className = "Home-bottom_bg">
                 <img src={abt} className="Home-info_icon" alt=""/>
-
+                
                 <h1>About</h1>
-
+                
                 <p className="Home-about_para">Nush.link is an url shortener application, designed by Nushies, for Nushies! With it you can shorten
-        and customise URL links, allowing for nicer formatting and readability when sending out URLs.</p>
-
+        and customise URL links, allowing for nicer formatting and readability when sending out URLs.</p> 
+                
                 <h1>Create your custom URL now!</h1>
                 <div className="Home-row_element">
                     <div className="Home-col">
                         <h2>Enter Original URL:</h2>
-                        <TextField id="standard-basic"
+                        <TextField id="standard-basic" 
                         label="Original URL"
                         inputProps={{style: {fontSize: '2em'}}}
                         InputLabelProps={{style: {fontSize: '2em'}}}
@@ -134,7 +130,7 @@ function Home(props : aliasProps) {
                             inputProps={{style: {fontSize: '2em'}}}
                             onChange={getAliasLink}
                             />
-                        </div>
+                        </div>     
                     </div>
                 </div>
                 <Button className="Home-btn_create_url" style={{marginTop: '2em', fontSize: '2em', borderRadius: '20px'}} onClick={() => { add_link() }}>

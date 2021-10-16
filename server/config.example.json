@@ -4,6 +4,5 @@
   "DB_DATABASE": "nushlink",
   "DB_URL_REDIRECT_TABLE": "urlredirect",
   "DB_PASSWORD": "[redacted]",
-  "PORT": 5000,
-  "MS_CLIENT_ID": "[redacted]"
+  "PORT": 5000
 }

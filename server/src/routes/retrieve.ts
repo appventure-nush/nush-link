@@ -1,5 +1,6 @@
 import express from 'express';
 import * as yup from 'yup';
+import mysql from 'mysql';
 import connection from '../config/database';
 import config from '../config/config';
 import filter from '../util/filter';
@@ -24,8 +25,9 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
-        [alias],
+        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
+          alias,
+        )};`,
         (error, result) => {
           if (error) next(new Error(`Error during sql: ${error.message}`));
           if (result.length === 1) {
@@ -55,16 +57,15 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original, creatorName, creatorEmail FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
-        [alias],
+        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ${mysql.escape(
+          alias,
+        )};`,
         (error, result) => {
           if (error) next(new Error(`Error during sql: ${error.message}`));
           if (result.length === 1) {
             res.json({
               success: true,
               url: result[0].original,
-              creator: result[0].creatorName,
-              creatorEmail: result[0].creatorEmail,
             });
           } else {
             next(new Error('No alias found'));
