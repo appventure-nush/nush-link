@@ -6,7 +6,7 @@ A project by AppVenture
 
 ## Project Aim
 
-The aim of the project is to create a url shortner similar to `https://tinyurl.com/` for NUSH
+The aim of the project is to create a url shortner similar to `https://tinyurl.com/`, but for NUSH
 
 This URL shortner will be used by staff and teachers to shorten their urls.
 
