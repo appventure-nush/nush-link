@@ -15,6 +15,8 @@ function setupDatabase() {
       id INT NOT NULL AUTO_INCREMENT,
       original TEXT NOT NULL,
       alias varchar(255) NOT NULL,
+      creatorName varchar(255) NOT NULL,
+      creatorEmail varchar(255) NOT NULL,
       createdOn DATETIME NOT NULL,
       PRIMARY KEY(id),
       UNIQUE(alias)

@@ -1,10 +1,9 @@
 import express from 'express';
 import * as yup from 'yup';
-import uniqid from 'uniqid';
-import mysql from 'mysql';
 import connection from '../config/database';
 import config from '../config/config';
 import filter from '../util/filter';
+import { AuthenticatedRequest } from '../auth/authenticatedrequest';
 
 const router = express.Router();
 
@@ -21,24 +20,21 @@ router.post(
     next: express.NextFunction,
   ) => {
     try {
-      let { alias } = req.query;
-      const { original } = req.query;
+      const authReq = req as AuthenticatedRequest;
+      let { alias } = authReq.body;
+      const { original } = authReq.body;
       await schema.validate({
         alias,
         original,
       });
 
-      if (!alias) {
-        alias = uniqid();
-      }
-
       alias = alias.toString().toLowerCase();
       await connection.query(
-        `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, createdOn) VALUES (${mysql.escape(
-          original,
-        )}, ${mysql.escape(alias)}, CURRENT_TIMESTAMP);`,
+        `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creatorName, creatorEmail, createdOn)
+          VALUES (?,?,?,?, CURRENT_TIMESTAMP);`,
+        [original, alias, authReq.username, authReq.email],
         (error, result) => {
-          if (error) throw new Error(`Error during sql ${error.message}`);
+          if (error) next(new Error(error.sqlMessage));
           if (result) {
             res.json({
               success: true,
