@@ -130,7 +130,7 @@ export default Vue.extend({
       // Add routes here to correspond to router.ts
       return [
         {
-          name: "Main page",
+          name: "Dashboard",
           route: "/",
           icon: "mdi-file-table-box",
         },
