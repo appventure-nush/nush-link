@@ -39,6 +39,7 @@
       </v-list>
     </v-navigation-drawer>
     <!--    Regular page -->
+    <transition name="fade">
     <v-app-bar
       app
       color="primary"
@@ -52,6 +53,7 @@
       </v-toolbar-title>
     </v-app-bar>
     <!--    Show full page image on front page-->
+
     <v-app-bar
       v-else
       app
@@ -59,8 +61,12 @@
       shrink-on-scroll
       prominent
       fade-img-on-scroll
-      src="https://raw.githubusercontent.com/appventure-nush/nush-link/main/front-end/src/sprites/school-bg.png"
+      :src="this.img"  alt class="icon"
+        :key="this.img"
       :height="height"
+    :class="imgIsLoaded ? 'show' : ''"
+    loading="lazy"
+    @load="imgLoadedMethod"
     >
       <v-app-bar-nav-icon v-if="user != null"
                           @click="drawerShown = !drawerShown"/>
@@ -87,6 +93,7 @@
         </v-row>
       </v-container>
     </v-app-bar>
+    </transition>
 
     <!--    Accommodate picture on main page-->
     <div :style="route.path === '/' ? {'margin-top': height + 'px'} : ''">
@@ -108,7 +115,11 @@ export default Vue.extend({
       name: "John",
     },
     font: window.innerWidth < 1000 ? 3 * 0.75 : 3,
-    hideSubtitle: false
+    hideSubtitle: false,
+    img: "",
+    interval: 0,
+    imgIsLoaded: false,
+    imgList: ["ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg", "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg", "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg"].concat([1, 2, 3, 4, 5].map(function(n) { return `yuen${n}.jpg`})).map(function(name) { return `/sprites/${name}`; })
   }),
   computed: {
     routes(): Array<{
@@ -137,7 +148,13 @@ export default Vue.extend({
   },
   mounted() {
     window.addEventListener("scroll", this.onScroll);
+    this.interval = setInterval(this.setImage, 20000);
+    this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
+    console.log(this.img);
   },
+  beforeDestroy () {
+    clearInterval(this.interval);
+},
   methods: {
     onScroll() {
       if (window.scrollY > this.height * 0.8) {
@@ -150,7 +167,32 @@ export default Vue.extend({
       if (this.width < 1000) {
         this.font *= 0.75;
       }
+    },
+    setImage() {
+      this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
+    },
+    imgLoadedMethod () {
+      this.imgIsLoaded = true;
     }
   }
 });
 </script>
+<style scoped>
+img {
+  opacity: 0;
+  transition: 3s;
+}
+
+img.show {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition: opacity 1s ease-in-out;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter {
+  opacity: 0;
+}
+</style>
