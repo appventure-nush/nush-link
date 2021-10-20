@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid style="height: 100vh">
     <v-card>
       <v-card-title>
         Your profile
@@ -17,11 +17,17 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "Main",
-  data: function (){
-    return {
-    };
+  data: function () {
+    return {};
   },
-  methods:{
+  computed: {
+    width() {
+      return window.innerWidth;
+    },
+    height() {
+      return window.innerHeight;
+    },
   },
+  methods: {},
 });
 </script>

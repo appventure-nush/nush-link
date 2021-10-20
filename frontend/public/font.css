@@ -23,3 +23,7 @@
 #app {
     font-family: Montserrat;
 }
+
+.v-toolbar__image .v-image {
+    opacity: 0.5;
+}

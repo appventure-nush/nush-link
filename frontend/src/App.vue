@@ -38,21 +38,60 @@
         </router-link>
       </v-list>
     </v-navigation-drawer>
+    <!--    Regular page -->
     <v-app-bar
       app
       color="primary"
       dark
+      v-if="route.path !== '/'"
     >
       <v-app-bar-nav-icon v-if="user != null"
                           @click="drawerShown = !drawerShown"/>
       <v-toolbar-title>
-        _Vue-Template
+        {{ route.name }}
       </v-toolbar-title>
     </v-app-bar>
+    <!--    Show full page image on front page-->
+    <v-app-bar
+      v-else
+      app
+      dark
+      shrink-on-scroll
+      prominent
+      fade-img-on-scroll
+      src="https://raw.githubusercontent.com/appventure-nush/nush-link/main/front-end/src/sprites/school-bg.png"
+      :height="height"
+    >
+      <v-app-bar-nav-icon v-if="user != null"
+                          @click="drawerShown = !drawerShown"/>
+      <v-container fill-width
+                   :fill-height="!this.hideSubtitle"
+                   fluid>
+        <v-row align="center"
+               justify="center">
+          <v-col :align="(width < 1000 || this.hideSubtitle) ? 'left' : 'center'"
+                 justify="center">
+            <v-toolbar-title class="text-wrap"
+                             :style="{padding: 0, color: 'white', 'font-weight':500}">
+              <span :style="{'font-size':this.font+'em'}">{{
+                  route.name
+                }}</span>
+              <span v-if="!this.hideSubtitle"
+                    class="text-wrap"
+                    :style="{'font-size':Math.min(1,this.font)+'em'}">
+                <br>
+                An AppVenture Project
+              </span>
+            </v-toolbar-title>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
 
-    <v-content>
+    <!--    Accommodate picture on main page-->
+    <div :style="route.path === '/' ? {'margin-top': height + 'px'} : ''">
       <router-view/>
-    </v-content>
+    </div>
   </v-app>
 </template>
 
@@ -65,8 +104,11 @@ export default Vue.extend({
   data: () => ({
     drawerShown: false,
     user: {
+      // TODO: Fetch user from backend API / decode frontend JWT
       name: "John",
-    }
+    },
+    font: window.innerWidth < 1000 ? 3 * 0.75 : 3,
+    hideSubtitle: false
   }),
   computed: {
     routes(): Array<{
@@ -83,6 +125,32 @@ export default Vue.extend({
         },
       ];
     },
+    route() {
+      return this.$route;
+    },
+    height() {
+      return window.innerHeight;
+    },
+    width() {
+      return window.innerWidth;
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  methods: {
+    onScroll() {
+      if (window.scrollY > this.height * 0.8) {
+        this.font = 1;
+        this.hideSubtitle = true;
+      } else {
+        this.font = 3;
+        this.hideSubtitle = false;
+      }
+      if (this.width < 1000) {
+        this.font *= 0.75;
+      }
+    }
   }
 });
 </script>

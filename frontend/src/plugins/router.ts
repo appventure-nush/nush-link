@@ -4,9 +4,10 @@ import Main from "@/views/Main.vue";
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteConfig | any> = [
   {
     path: "/",
+    name: "NUSH.link",
     component: Main,
   },
 ];
