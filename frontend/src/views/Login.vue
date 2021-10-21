@@ -39,7 +39,6 @@
 <script lang="ts">
 import Vue from "vue";
 import router from "@/plugins/router";
-import { CHeading } from "@chakra-ui/vue";
 
 export default Vue.extend({
   data() {
@@ -49,9 +48,6 @@ export default Vue.extend({
       password: "",
       formAlert: false
     };
-  },
-  components: {
-      CHeading
   },
   methods: {
     validate () {

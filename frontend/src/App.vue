@@ -104,7 +104,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { CHeading } from "@chakra-ui/vue";
 
 export default Vue.extend({
   name: "App",
