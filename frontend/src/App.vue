@@ -104,6 +104,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { CHeading } from "@chakra-ui/vue";
 
 export default Vue.extend({
   name: "App",
@@ -133,6 +134,21 @@ export default Vue.extend({
           name: "Dashboard",
           route: "/",
           icon: "mdi-file-table-box",
+        },
+        {
+          name: "About",
+          route: "/about",
+          icon: "mdi-information",
+        },
+        {
+          name: "Profile",
+          route: "/profile",
+          icon: "mdi-account",
+        },
+        {
+          name: "Calendar",
+          route: "/calendar",
+          icon: "mdi-calendar",
         },
       ];
     },
