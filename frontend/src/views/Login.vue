@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid style="margin-top:60px">
+    <v-container fluid>
       <v-img src="@/../public/assets/logo.png" alt="logo" max-width="400px" class="logo-img">
       </v-img>
       <h1 style="margin-bottom:20px">NUSH.link Login</h1>
@@ -50,32 +50,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    validate () {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      fetch("/auth/login",{
-        method: "POST" ,
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: this.name,
-          password: this.password,
-        })
-      }).then(res => {
-        if(res.status === 404 || res.status === 200){
-          this.$store.commit("login",this.name);
-          console.log(res);
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          this.$refs.form.validate();
-          router.push("/home");
-        } else {
-          this.formAlert = true;
-          console.log("Unauthorized login");
-        }
-      });
-    },
+    validate () { return true; },
   }
 });
 </script>

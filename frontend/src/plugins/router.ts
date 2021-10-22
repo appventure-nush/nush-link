@@ -15,6 +15,11 @@ const routes: Array<RouteConfig | any> = [
     component: Main,
   },
   {
+    path: "/home",
+    name: "Home",
+    component: Main,
+  },
+  {
     path: "/about",
     name: "About",
     component: About,

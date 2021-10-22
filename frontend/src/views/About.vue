@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid style="height: 100vh;margin-top: 60px">
+  <v-container fluid style="height: 70vh">
     <v-card>
       <v-card-title>
         About NUSH.link

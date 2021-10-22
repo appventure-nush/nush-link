@@ -41,7 +41,7 @@
     <!--    Regular page -->
     <transition name="fade">
     <v-app-bar
-      app
+      app  dense fixed
       color="primary"
       dark
       v-if="route.path !== '/'"
@@ -56,18 +56,21 @@
 
     <v-app-bar
       v-else
-      app
+      app  dense fixed
       dark
       shrink-on-scroll
       prominent
       fade-img-on-scroll
+      :height="height"
       :src="this.img"  alt class="icon"
         :key="this.img"
-      :height="height"
     :class="imgIsLoaded ? 'show,display' : 'display'"
     loading="lazy"
     @load="imgLoadedMethod"
     >
+       <!-- <template v-slot:img>
+         <v-img :key="this.img" :src="this.img" class="pa-4" contain :class="imgIsLoaded ? 'show,display' : 'display'" loading="lazy" @load="imgLoadedMethod"></v-img>
+       </template> -->
       <v-app-bar-nav-icon v-if="user != null"
                           @click="drawerShown = !drawerShown"/>
       <v-container fill-width
@@ -96,11 +99,12 @@
     </transition>
 
     <!--    Accommodate picture on main page-->
-    <div :style="route.path === '/' ? {'margin-top': height + 'px'} : ''">
+    <div :style="route.path === '/' ? {'margin-top': height + 'px'} : {'margin-top':  '60px'}">
       <router-view/>
     </div>
     <v-footer
-      :absolute="true"
+      :fixed="route.path !== '/'"
+      :absolute="route.path === '/'"
       :padless="true"
     >
       <v-card
@@ -156,7 +160,7 @@ export default Vue.extend({
     img: "/sprites/ecogarden.jpg",
     interval: 0,
     imgIsLoaded: false,
-    imgList: ["ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg", "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg", "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg"].concat([1, 2, 3, 4, 5].map(function(n) { return `yuen${n}.jpg`})).map(function(name) { return `/sprites/${name}`; })
+    imgList: ["ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg", "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg", "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg"].concat([1, 3].map(function(n) { return `yuen${n}.jpg`})).map(function(name) { return `/sprites/${name}`; })
   }),
   computed: {
     routes(): Array<{
