@@ -64,7 +64,7 @@
       :src="this.img"  alt class="icon"
         :key="this.img"
       :height="height"
-    :class="imgIsLoaded ? 'show' : ''"
+    :class="imgIsLoaded ? 'show,display' : 'display'"
     loading="lazy"
     @load="imgLoadedMethod"
     >
@@ -99,6 +99,43 @@
     <div :style="route.path === '/' ? {'margin-top': height + 'px'} : ''">
       <router-view/>
     </div>
+    <v-footer
+      :absolute="true"
+      :padless="true"
+    >
+      <v-card
+        dark
+        flat
+        tile
+        width="100%"
+        class="text-center lighten-1"
+      >
+        <v-card-text>
+          <v-btn
+            class="mx-4"
+            icon
+            href="https://nush.app/"
+            target="_blank"
+            v-ripple="false"
+          >
+            <img src="/sprites/appventure-logo.svg" height="40px" />
+          </v-btn>
+          <v-btn
+            class="mx-4"
+            icon
+            href="https://www.nushigh.edu.sg/"
+            target="_blank"
+            v-ripple="false"
+          >
+            <img src="/sprites/nushigh_logo.svg" height="40px" />
+          </v-btn>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-text class="white--text">
+          Developed by David Goh Zhe Kai, James Chin Jia Jun, Lam Jun Rong, Oliver Su Zhengchong, Kai Wen Woo and Prannaya Gupta
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
@@ -116,7 +153,7 @@ export default Vue.extend({
     },
     font: window.innerWidth < 1000 ? 3 * 0.75 : 3,
     hideSubtitle: false,
-    img: "",
+    img: "/sprites/ecogarden.jpg",
     interval: 0,
     imgIsLoaded: false,
     imgList: ["ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg", "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg", "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg"].concat([1, 2, 3, 4, 5].map(function(n) { return `yuen${n}.jpg`})).map(function(name) { return `/sprites/${name}`; })
@@ -193,7 +230,7 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-img {
+img.display {
   opacity: 0;
   transition: 3s;
 }
@@ -209,5 +246,12 @@ img.show {
 }
 .fade-enter {
   opacity: 0;
+}
+.v-btn:before {
+  opacity: 0 !important;
+}
+
+.v-ripple__container {
+  opacity: 0 !important;
 }
 </style>
