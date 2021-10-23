@@ -96,7 +96,8 @@
     </transition>
 
     <!--    Accommodate picture on main page-->
-    <div :style="route.path === '/' ? {'margin-top': height + 'px'} : {'margin-top':  '60px'}">
+    <div
+      :style="route.path === '/' ? {'margin-top': height + 'px', height: height+'px'} : {'margin-top':  '60px'}">
       <router-view/>
     </div>
     <v-footer
@@ -144,7 +145,6 @@
 <script lang="ts">
 import Vue from "vue";
 import {getUserData} from "./api/me";
-import {UserData} from "@/types/UserData";
 
 export default Vue.extend({
   name: "App",
@@ -196,7 +196,7 @@ export default Vue.extend({
     route() {
       return this.$route;
     },
-    user(){
+    user() {
       return this.$store.state.user;
     },
     height() {

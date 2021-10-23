@@ -1,79 +1,96 @@
 <template>
-  <v-container fluid style="height: 66vh" align="center" justify="center">
-    <v-card style="padding: 20px">
-      <v-card-title>
-        Create a NUSH.link!
-        <v-spacer/>
-      </v-card-title>
-
-      <v-form
-        ref="form"
-        v-model="valid"
-        style="padding-bottom:30px"
-        lazy-validation>
-        <v-row
-          align="center"
-          justify="center"
-          class="ma-12"
-        >
-          <v-col
-            cols="12"
-            sm="4"
+  <v-container fluid fill-height fill-width align="center" justify="center">
+    <v-row>
+      <v-col align="center" justify="center">
+        <span style="font-size: 2em">
+          Create a NUSH.link!
+        </span>
+        <v-form
+          ref="form"
+          v-model="valid"
+          style="padding-bottom:30px"
+          lazy-validation>
+          <v-row
+            align="center"
+            justify="center"
+            class="ma-12"
           >
-            <h3>Original URL</h3>
-            <v-text-field
-              :disabled="!user"
-              x-large
-              v-model="url_original"
-              placeholder="Original URL"
-              :rules="[rules.original]"
-              required>
-            </v-text-field>
-            <v-spacer/>
-          </v-col>
-          <v-col
-            cols="12"
-            sm="4"
+            <v-col
+              cols="12"
+              sm="4"
+            >
+              <h3>Original URL</h3>
+              <v-text-field
+                :disabled="!user"
+                x-large
+                v-model="url_original"
+                placeholder="Original URL"
+                :rules="[rules.original]"
+                @input="resetState"
+                required>
+              </v-text-field>
+              <v-spacer/>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="4"
+            >
+              <h3>Customized URL</h3>
+              <v-tooltip
+                v-model="copied"
+                right
+              >
+                <template v-slot:activator="{on}">
+                  <v-text-field
+                    :disabled="!user"
+                    x-large
+                    v-model="url_new"
+                    placeholder="New URL"
+                    prefix="https://nush.link/"
+                    :rules="[rules.new]"
+                    @input="resetState"
+                    append-outer-icon="mdi-content-copy"
+                    @click:append-outer="copyLink"
+                    required>
+                  </v-text-field>
+                </template>
+                Copied!
+              </v-tooltip>
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+            justify="center"
+            class="ma-12"
           >
-            <h3>Customized URL</h3>
-            <v-text-field
-              :disabled="!user"
+            <!--  Redirect user to sign in if they are not signed in -->
+            <v-btn
+              v-if="!user"
+              :disabled="!valid"
+              color="primary"
               x-large
-              v-model="url_new"
-              placeholder="New URL"
-              prefix="https://nush.link/"
-              :rules="[rules.new]"
-              required>
-            </v-text-field>
-          </v-col>
-        </v-row>
-        <v-row
-          align="center"
-          justify="center"
-          class="ma-12"
-        >
-          <!--  Users can only create links when signed in -->
-          <v-btn
-            v-if="user"
-            :disabled="!valid"
-            color="primary"
-            x-large
-            @click="create">
-            Create
-          </v-btn>
-          <!--  Redirect user to sign in if they are not signed in -->
-          <v-btn
-            v-else
-            :disabled="!valid"
-            color="primary"
-            x-large
-            @click="signIn">
-            Sign in to create link
-          </v-btn>
-        </v-row>
-      </v-form>
-
-    </v-card>
+              @click="signIn">
+              Sign in to create link
+            </v-btn>
+            <!--  Users can only create links when signed in -->
+            <v-btn
+              v-else-if="!success"
+              :disabled="!valid"
+              color="primary"
+              x-large
+              @click="create">
+              Create
+            </v-btn>
+            <!-- Success -->
+            <v-btn v-else-if="success"
+                   color="success"
+                   x-large>
+              Link created!
+            </v-btn>
+          </v-row>
+        </v-form>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -102,6 +119,9 @@ export default Vue.extend({
       valid: true,
       url_original: "",
       url_new: "",
+      success: false,
+      copied: false,
+      copyTimer: -1,
     };
   },
   computed: {
@@ -119,9 +139,32 @@ export default Vue.extend({
     create() {
       fetch(`/api/create?alias=${this.url_new}&original=${this.url_original}`, {
         method: "POST",
-        headers: {"Content-type": "application/json; charset=UTF-8"}
+        headers: {"Content-type": "application/json; charset=UTF-8"},
+        body: JSON.stringify({
+          alias: this.url_new,
+          original: this.url_original
+        })
       }).then(response => response.json()).then((data) => {
-        if (data.success) console.log("Success!"); else if (typeof data.message !== "undefined") console.log(data.message);
+        if (data.success) {
+          this.success = true;
+        } else if (typeof data.message !== "undefined") {
+          console.log(data.message);
+        }
+      });
+    },
+    resetState() {
+      this.copied = false;
+      this.success = false;
+    },
+    copyLink() {
+      navigator.clipboard.writeText("https://nush.link/" + this.url_new).then(() => {
+        this.copied = true;
+        if (this.copyTimer != -1) {
+          clearTimeout(this.copyTimer);
+        }
+        this.copyTimer = setTimeout(() => {
+          this.copied = false;
+        }, 750);
       });
     },
     signIn() {

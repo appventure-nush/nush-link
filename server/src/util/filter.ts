@@ -1,8 +1,7 @@
 import * as yup from 'yup';
 
 const banned = [
-  'Success',
-  'success',
+  'api',
 ];
 const allowedRegex = new RegExp('^[a-z0-9_-]+$');
 const aliasFilter = yup
