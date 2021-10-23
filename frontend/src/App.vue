@@ -40,62 +40,62 @@
     </v-navigation-drawer>
     <!--    Regular page -->
     <transition name="fade">
-    <v-app-bar
-      app  dense fixed
-      color="primary"
-      dark
-      v-if="route.path !== '/'"
-    >
-      <v-app-bar-nav-icon v-if="user != null"
-                          @click="drawerShown = !drawerShown"/>
-      <v-toolbar-title>
-        {{ route.name }}
-      </v-toolbar-title>
-    </v-app-bar>
-    <!--    Show full page image on front page-->
+      <v-app-bar
+        app dense fixed
+        color="primary"
+        dark
+        v-if="route.path !== '/'"
+      >
+        <v-app-bar-nav-icon v-if="user != null"
+                            @click="drawerShown = !drawerShown"/>
+        <v-toolbar-title>
+          {{ route.name }}
+        </v-toolbar-title>
+      </v-app-bar>
+      <!--    Show full page image on front page-->
 
-    <v-app-bar
-      v-else
-      app  dense fixed
-      dark
-      shrink-on-scroll
-      prominent
-      fade-img-on-scroll
-      :height="height"
-      :src="this.img"  alt class="icon"
+      <v-app-bar
+        v-else
+        app dense fixed
+        dark
+        shrink-on-scroll
+        prominent
+        fade-img-on-scroll
+        :height="height"
+        :src="this.img" alt class="icon"
         :key="this.img"
-    :class="imgIsLoaded ? 'show,display' : 'display'"
-    loading="lazy"
-    @load="imgLoadedMethod"
-    >
-       <!-- <template v-slot:img>
-         <v-img :key="this.img" :src="this.img" class="pa-4" contain :class="imgIsLoaded ? 'show,display' : 'display'" loading="lazy" @load="imgLoadedMethod"></v-img>
-       </template> -->
-      <v-app-bar-nav-icon v-if="user != null"
-                          @click="drawerShown = !drawerShown"/>
-      <v-container fill-width
-                   :fill-height="!this.hideSubtitle"
-                   fluid>
-        <v-row align="center"
-               justify="center">
-          <v-col :align="(width < 1000 || this.hideSubtitle) ? 'left' : 'center'"
+        :class="imgIsLoaded ? 'show,display' : 'display'"
+        loading="lazy"
+        @load="imgLoadedMethod"
+      >
+        <!-- <template v-slot:img>
+          <v-img :key="this.img" :src="this.img" class="pa-4" contain :class="imgIsLoaded ? 'show,display' : 'display'" loading="lazy" @load="imgLoadedMethod"></v-img>
+        </template> -->
+        <v-app-bar-nav-icon v-if="user != null"
+                            @click="drawerShown = !drawerShown"/>
+        <v-container fill-width
+                     :fill-height="!this.hideSubtitle"
+                     fluid>
+          <v-row align="center"
                  justify="center">
-            <v-toolbar-title class="text-wrap"
-                             :style="{padding: 0, color: 'white', 'font-weight':500}">
+            <v-col :align="(width < 1000 || this.hideSubtitle) ? 'left' : 'center'"
+                   justify="center">
+              <v-toolbar-title class="text-wrap"
+                               :style="{padding: 0, color: 'white', 'font-weight':500}">
               <span :style="{'font-size':this.font+'em'}">{{
                   route.name
                 }}</span>
-              <span v-if="!this.hideSubtitle"
-                    class="text-wrap"
-                    :style="{'font-size':Math.min(1,this.font)+'em'}">
+                <span v-if="!this.hideSubtitle"
+                      class="text-wrap"
+                      :style="{'font-size':Math.min(1,this.font)+'em'}">
                 <br>
                 An AppVenture Project
               </span>
-            </v-toolbar-title>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-app-bar>
+              </v-toolbar-title>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-app-bar>
     </transition>
 
     <!--    Accommodate picture on main page-->
@@ -122,7 +122,7 @@
             target="_blank"
             v-ripple="false"
           >
-            <img src="/sprites/appventure-logo.svg" height="40px" />
+            <img src="/sprites/appventure-logo.svg" height="40px"/>
           </v-btn>
           <v-btn
             class="mx-4"
@@ -131,12 +131,13 @@
             target="_blank"
             v-ripple="false"
           >
-            <img src="/sprites/nushigh_logo.svg" height="40px" />
+            <img src="/sprites/nushigh_logo.svg" height="40px"/>
           </v-btn>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-text class="white--text">
-          Developed by David Goh Zhe Kai, James Chin Jia Jun, Lam Jun Rong, Oliver Su Zhengchong, Kai Wen Woo and Prannaya Gupta
+          Developed by David Goh Zhe Kai, James Chin Jia Jun, Lam Jun Rong, Oliver Su Zhengchong,
+          Kai Wen Woo and Prannaya Gupta
         </v-card-text>
       </v-card>
     </v-footer>
@@ -160,7 +161,12 @@ export default Vue.extend({
     img: "/sprites/ecogarden.jpg",
     interval: 0,
     imgIsLoaded: false,
-    imgList: ["ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg", "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg", "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg"].concat([1, 3].map(function(n) { return `yuen${n}.jpg`})).map(function(name) { return `/sprites/${name}`; })
+    imgList: [
+      "ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg",
+      "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg",
+      "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg",
+      ...([1, 3].map(n => `yuen${n}.jpg`))
+    ].map(name => `/sprites/${name}`)
   }),
   computed: {
     routes(): Array<{
@@ -208,9 +214,9 @@ export default Vue.extend({
     this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
     console.log(this.img);
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.interval);
-},
+  },
   methods: {
     onScroll() {
       if (window.scrollY > this.height * 0.8) {
@@ -227,7 +233,7 @@ export default Vue.extend({
     setImage() {
       this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
     },
-    imgLoadedMethod () {
+    imgLoadedMethod() {
       this.imgIsLoaded = true;
     }
   }
@@ -242,15 +248,19 @@ img.display {
 img.show {
   opacity: 1;
 }
+
 .fade-enter-active {
   transition: opacity 1s ease-in-out;
 }
+
 .fade-enter-to {
   opacity: 1;
 }
+
 .fade-enter {
   opacity: 0;
 }
+
 .v-btn:before {
   opacity: 0 !important;
 }

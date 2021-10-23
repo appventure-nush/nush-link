@@ -16,5 +16,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     quotes: ["error", "double", {allowTemplateLiterals: true}],
     semi: "error",
+    "indent": ["error", 2],
+    "prefer-const": ["error"]
   },
 };
