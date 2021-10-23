@@ -4,7 +4,6 @@ import jwksClient = require('jwks-rsa');
 // eslint-disable-next-line
 import config from '../config/config';
 
-// https://login.microsoftonline.com/d72a7172-d5f8-4889-9a85-d7424751592a/oauth2/authorize?client_id=2f4b388c-143a-42b2-b69c-ff8531d58cda&redirect_uri=http://localhost:5000&response_type=id_token&nonce=nush-link
 export default async function verifyToken(token: string) {
   // Node has no atob
   const atob = (base64: string) => Buffer.from(base64, 'base64').toString('ascii');

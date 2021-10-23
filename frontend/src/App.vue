@@ -52,8 +52,8 @@
           {{ route.name }}
         </v-toolbar-title>
       </v-app-bar>
-      <!--    Show full page image on front page-->
 
+      <!--    Show full page image on front page-->
       <v-app-bar
         v-else
         app dense fixed
@@ -68,9 +68,6 @@
         loading="lazy"
         @load="imgLoadedMethod"
       >
-        <!-- <template v-slot:img>
-          <v-img :key="this.img" :src="this.img" class="pa-4" contain :class="imgIsLoaded ? 'show,display' : 'display'" loading="lazy" @load="imgLoadedMethod"></v-img>
-        </template> -->
         <v-app-bar-nav-icon v-if="user != null"
                             @click="drawerShown = !drawerShown"/>
         <v-container fill-width
@@ -146,16 +143,14 @@
 
 <script lang="ts">
 import Vue from "vue";
+import {getUserData} from "./api/me";
+import {UserData} from "@/types/UserData";
 
 export default Vue.extend({
   name: "App",
   components: {},
   data: () => ({
     drawerShown: false,
-    user: {
-      // TODO: Fetch user from backend API / decode frontend JWT
-      name: "John",
-    },
     font: window.innerWidth < 1000 ? 3 * 0.75 : 3,
     hideSubtitle: false,
     img: "/sprites/ecogarden.jpg",
@@ -201,6 +196,9 @@ export default Vue.extend({
     route() {
       return this.$route;
     },
+    user(){
+      return this.$store.state.user;
+    },
     height() {
       return window.innerHeight;
     },
@@ -213,6 +211,9 @@ export default Vue.extend({
     this.interval = setInterval(this.setImage, 20000);
     this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
     console.log(this.img);
+    getUserData().then(data => {
+      this.$store.commit("user", data);
+    });
   },
   beforeDestroy() {
     clearInterval(this.interval);

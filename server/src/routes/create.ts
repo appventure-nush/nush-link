@@ -13,7 +13,7 @@ const schema = yup.object().shape({
 });
 
 router.post(
-  '/create',
+  '/api/create',
   async (
     req: express.Request,
     res: express.Response,

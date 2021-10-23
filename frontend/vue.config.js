@@ -9,4 +9,7 @@ module.exports = {
       .use("ts-loader")
       .loader("ts-loader");
   },
+  devServer: {
+    proxy: "http://localhost:5000"
+  }
 };

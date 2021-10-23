@@ -8,6 +8,8 @@ import auth from './auth/middleware';
 import setupDatabase from './config/setupdatabase';
 import create from './routes/create';
 import retrieve from './routes/retrieve';
+import me from './routes/me';
+import login from './routes/auth';
 import config from './config/config';
 import HttpException from './exceptions/HttpException';
 
@@ -25,10 +27,15 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Authentication required to create
-app.use('/create', auth() as Application);
+// Authentication required to create and get user info
+app.use('/api/create', auth() as Application);
+app.use('/api/me', auth() as Application);
 // define a route to handle creation
-app.post('/create', create);
+app.post('/api/create', create);
+
+// Route to get data about current user
+app.use('/api/me', me);
+app.use('/api/auth', login);
 
 // define a route handler for ids
 app.get('/:alias', retrieve);

@@ -22,6 +22,7 @@
           >
             <h3>Original URL</h3>
             <v-text-field
+              :disabled="!user"
               x-large
               v-model="url_original"
               placeholder="Original URL"
@@ -36,6 +37,7 @@
           >
             <h3>Customized URL</h3>
             <v-text-field
+              :disabled="!user"
               x-large
               v-model="url_new"
               placeholder="New URL"
@@ -50,12 +52,23 @@
           justify="center"
           class="ma-12"
         >
+          <!--  Users can only create links when signed in -->
           <v-btn
+            v-if="user"
             :disabled="!valid"
             color="primary"
             x-large
             @click="create">
             Create
+          </v-btn>
+          <!--  Redirect user to sign in if they are not signed in -->
+          <v-btn
+            v-else
+            :disabled="!valid"
+            color="primary"
+            x-large
+            @click="signIn">
+            Sign in to create link
           </v-btn>
         </v-row>
       </v-form>
@@ -98,15 +111,24 @@ export default Vue.extend({
     height() {
       return window.innerHeight;
     },
+    user() {
+      return this.$store.state.user;
+    },
   },
   methods: {
     create() {
-      fetch(`http://localhost:5000/create?alias=${this.url_new}&original=${this.url_original}`, {
+      fetch(`/api/create?alias=${this.url_new}&original=${this.url_original}`, {
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"}
       }).then(response => response.json()).then((data) => {
         if (data.success) console.log("Success!"); else if (typeof data.message !== "undefined") console.log(data.message);
       });
+    },
+    signIn() {
+      location.href = `https://login.microsoftonline.com/d72a7172-d5f8-4889-9a85-d7424751592a/oauth2/authorize?` +
+        `client_id=2f4b388c-143a-42b2-b69c-ff8531d58cda&` +
+        `redirect_uri=${location.origin}/api/auth/login&` +
+        `response_type=id_token&nonce=nush-link&response_mode=form_post`;
     }
   },
 });
