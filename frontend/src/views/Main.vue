@@ -13,7 +13,7 @@
           <v-row
             align="center"
             justify="center"
-            class="ma-12"
+            class="ma-4"
           >
             <v-col
               cols="12"
@@ -40,17 +40,21 @@
                 v-model="copied"
                 right
               >
+                <!-- eslint-disable-next-line vue/no-unused-vars-->
                 <template v-slot:activator="{on}">
                   <v-text-field
                     :disabled="!user"
                     x-large
                     v-model="url_new"
                     placeholder="New URL"
-                    prefix="https://nush.link/"
+                    prefix="nush.link/"
                     :rules="[rules.new]"
                     @input="resetState"
+                    @change="checkAvailability"
                     append-outer-icon="mdi-content-copy"
                     @click:append-outer="copyLink"
+                    :error="url_new_error.length > 0"
+                    :error-messages="url_new_error"
                     required>
                   </v-text-field>
                 </template>
@@ -113,15 +117,22 @@ export default Vue.extend({
         },
         new: (input: string | undefined) => {
           if (input === undefined || input === "") return true;
-          return input.trim().toLowerCase().match(/^[a-z0-9_-]+$/) !== null || "Invalid Alias for the New URL";
+          if (input.trim().toLowerCase().match(/^[a-z0-9_-]+$/) !== null) {
+            return true;
+          }
+          this.$data.url_new_error = "";
+          return "Invalid Alias for the New URL";
         }
       },
       valid: true,
       url_original: "",
       url_new: "",
       success: false,
+
       copied: false,
       copyTimer: -1,
+
+      url_new_error: ""
     };
   },
   computed: {
@@ -137,7 +148,7 @@ export default Vue.extend({
   },
   methods: {
     create() {
-      fetch(`/api/create?alias=${this.url_new}&original=${this.url_original}`, {
+      fetch(`/api/create`, {
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"},
         body: JSON.stringify({
@@ -150,6 +161,29 @@ export default Vue.extend({
         } else if (typeof data.message !== "undefined") {
           console.log(data.message);
         }
+      });
+    },
+    checkAvailability() {
+      fetch(`/api/create/check`, {
+        method: "POST",
+        headers: {"Content-type": "application/json; charset=UTF-8"},
+        body: JSON.stringify({
+          alias: this.url_new,
+        })
+      }).then(response => response.json()).then((data) => {
+        if (data.success) {
+          if (data.result.length) {
+            this.url_new_error = "This alias has already been taken.";
+            return;
+          }
+        } else if (typeof data.message !== "undefined") {
+          // Regex handled client side
+          if (data.message.includes("this must match")) {
+            return;
+          }
+          this.url_new_error = "Invalid alias";
+        }
+        this.url_new_error = "";
       });
     },
     resetState() {

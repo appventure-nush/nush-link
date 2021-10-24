@@ -13,7 +13,39 @@ const schema = yup.object().shape({
 });
 
 router.post(
-  '/api/create',
+  '/check',
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      let { alias } = authReq.body;
+      await filter.aliasFilter.validate(alias);
+
+      alias = alias.toString().toLowerCase();
+      await connection.query(
+        `SELECT 1 FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?`,
+        [alias],
+        (error, result) => {
+          if (error) next(new Error(error.sqlMessage));
+          if (result) {
+            res.json({
+              success: true,
+              result,
+            });
+          }
+        },
+      );
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+router.post(
+  '/',
   async (
     req: express.Request,
     res: express.Response,

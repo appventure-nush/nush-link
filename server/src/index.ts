@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use('/api/create', auth() as Application);
 app.use('/api/me', auth() as Application);
 // define a route to handle creation
-app.post('/api/create', create);
+app.use('/api/create', create);
 
 // Route to get data about current user
 app.use('/api/me', me);
