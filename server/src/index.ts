@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 
+import path from 'path';
 import auth from './auth/middleware';
 import setupDatabase from './config/setupdatabase';
 import create from './routes/create';
@@ -26,6 +27,8 @@ app.use(cookieParser());
 // Body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Authentication required to create and get user info
 app.use('/api/create', auth() as Application);
