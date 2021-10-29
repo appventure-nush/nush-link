@@ -1,9 +1,11 @@
 name: Node.js CI
 
+# TODO: Remove vue when merged into main
 on:
   push:
     branches:
-      - master
+      - main
+      - vue
 
 jobs:
   build:
