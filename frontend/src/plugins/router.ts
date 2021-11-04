@@ -5,6 +5,8 @@ import About from "@/views/About.vue";
 import Profile from "@/views/Profile.vue";
 import Calendar from "@/views/Calendar.vue";
 import Login from "@/views/Login.vue";
+import Preview from "@/views/Preview.vue";
+import NotFound from "@/views/NotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -33,12 +35,17 @@ const routes: Array<RouteConfig | any> = [
     path: "/calendar",
     name: "Calendar",
     component: Calendar,
-    },
+  },
   {
-    path: "/login",
-    name: "Login",
-    component: Login,
-    }
+    path: "/p/:alias",
+    name: "Link preview",
+    component: Preview
+  },
+  {
+    path: "/404",
+    name: "Not found",
+    component: NotFound
+  }
 ];
 
 export default new VueRouter({
