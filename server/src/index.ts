@@ -41,8 +41,7 @@ app.use('/api/me', me);
 app.use('/api/auth', login);
 
 // define a route handler for ids
-app.get('/:alias', retrieve);
-app.get('/:alias/data', retrieve);
+app.use('/', retrieve);
 
 // Route for error handling
 app.use(

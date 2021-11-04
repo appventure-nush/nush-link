@@ -31,7 +31,38 @@ router.get(
           if (result.length === 1) {
             res.redirect(result[0].original);
           } else {
-            next(new Error('No alias found'));
+            res.redirect('/#404');
+          }
+        },
+      );
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+router.get(
+  '/:alias/p',
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    try {
+      const { alias } = req.params;
+      await schema.validate({
+        alias,
+      });
+
+      await connection.query(
+        `SELECT alias FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
+        [alias],
+        (error, result) => {
+          if (error) next(new Error(`Error during sql: ${error.message}`));
+          if (result.length === 1) {
+            res.redirect(`/#p/${alias}`);
+          } else {
+            res.redirect('/#404');
           }
         },
       );
@@ -55,7 +86,7 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original, creatorName, creatorEmail FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
+        `SELECT original, creatorName, creatorEmail, createdOn FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
         [alias],
         (error, result) => {
           if (error) next(new Error(`Error during sql: ${error.message}`));
@@ -65,9 +96,13 @@ router.get(
               url: result[0].original,
               creator: result[0].creatorName,
               creatorEmail: result[0].creatorEmail,
+              createdOn: new Date(result[0].createdOn).toISOString(),
             });
           } else {
-            next(new Error('No alias found'));
+            res.json({
+              success: false,
+              error: 'No alias found',
+            });
           }
         },
       );

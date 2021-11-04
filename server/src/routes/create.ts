@@ -33,7 +33,7 @@ router.post(
           if (result) {
             res.json({
               success: true,
-              result,
+              result: result.length > 0,
             });
           }
         },

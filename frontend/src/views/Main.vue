@@ -172,7 +172,7 @@ export default Vue.extend({
         })
       }).then(response => response.json()).then((data) => {
         if (data.success) {
-          if (data.result.length) {
+          if (data.result) {
             this.url_new_error = "This alias has already been taken.";
             return;
           }
