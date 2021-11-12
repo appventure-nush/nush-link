@@ -24,12 +24,12 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
+        `SELECT original FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1;`,
         [alias],
         (error, result) => {
-          if (error) next(new Error(`Error during sql: ${error.message}`));
-          if (result.length === 1) {
-            res.redirect(result[0].original);
+          if (error) return next(new Error(`Error during sql: ${error.message}`));
+          if (result.rowCount === 1) {
+            res.redirect(result.rows[0].original);
           } else {
             res.redirect('/#404');
           }
@@ -55,11 +55,11 @@ router.get(
       });
 
       await connection.query(
-        `SELECT alias FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
+        `SELECT alias FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1;`,
         [alias],
         (error, result) => {
-          if (error) next(new Error(`Error during sql: ${error.message}`));
-          if (result.length === 1) {
+          if (error) return next(new Error(`Error during sql: ${error.message}`));
+          if (result.rowCount === 1) {
             res.redirect(`/#p/${alias}`);
           } else {
             res.redirect('/#404');
@@ -86,17 +86,18 @@ router.get(
       });
 
       await connection.query(
-        `SELECT original, creatorName, creatorEmail, createdOn FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?;`,
+        `SELECT original, creatorName, creatorEmail, createdOn FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1;`,
         [alias],
         (error, result) => {
-          if (error) next(new Error(`Error during sql: ${error.message}`));
-          if (result.length === 1) {
+          if (error) return next(new Error(`Error during sql: ${error.message}`));
+          if (result.rowCount === 1) {
+            const item = result.rows[0];
             res.json({
               success: true,
-              url: result[0].original,
-              creator: result[0].creatorName,
-              creatorEmail: result[0].creatorEmail,
-              createdOn: new Date(result[0].createdOn).toISOString(),
+              url: item.original,
+              creator: item.creatorName,
+              creatorEmail: item.creatorEmail,
+              createdOn: new Date(item.createdOn).toISOString(),
             });
           } else {
             res.json({

@@ -26,14 +26,14 @@ router.post(
 
       alias = alias.toString().toLowerCase();
       await connection.query(
-        `SELECT 1 FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = ?`,
+        `SELECT 1 FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1`,
         [alias],
         (error, result) => {
-          if (error) next(new Error(error.sqlMessage));
+          if (error) return next(new Error(error.message));
           if (result) {
             res.json({
               success: true,
-              result: result.length > 0,
+              result: result.rowCount > 0,
             });
           }
         },
@@ -63,10 +63,10 @@ router.post(
       alias = alias.toString().toLowerCase();
       await connection.query(
         `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creatorName, creatorEmail, createdOn)
-          VALUES (?,?,?,?, CURRENT_TIMESTAMP);`,
+          VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP);`,
         [original, alias, authReq.username, authReq.email],
         (error, result) => {
-          if (error) next(new Error(error.sqlMessage));
+          if (error) next(new Error(error.message));
           if (result) {
             res.json({
               success: true,
