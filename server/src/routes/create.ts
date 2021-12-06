@@ -9,7 +9,7 @@ const router = express.Router();
 
 const schema = yup.object().shape({
   alias: filter.aliasFilter,
-  original: yup.string().trim().url().required(),
+  original: yup.string().trim().matches(/^(https?:\/\/)?\w+\.\w+\/?/).required(),
 });
 
 router.post(

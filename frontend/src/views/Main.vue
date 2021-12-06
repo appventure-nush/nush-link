@@ -25,6 +25,7 @@
                 x-large
                 v-model="url_original"
                 placeholder="Original URL"
+                :rules="[rules.original]"
                 @input="resetState"
                 required>
               </v-text-field>
@@ -105,6 +106,13 @@ export default Vue.extend({
   data: function () {
     return {
       rules: {
+        original: (value: string | undefined) => {
+          if (value === undefined || value === "") return true;
+          if (value.trim().toLowerCase().match(/^(https?:\/\/)?\w+\.\w+\/?/)) {
+            return true;
+          }
+          return "Invalid URL";
+        },
         new: (input: string | undefined) => {
           if (input === undefined || input === "") return true;
           if (input.trim().toLowerCase().match(/^[a-z0-9_-]+$/) !== null) {
