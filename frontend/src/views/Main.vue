@@ -25,7 +25,6 @@
                 x-large
                 v-model="url_original"
                 placeholder="Original URL"
-                :rules="[rules.original]"
                 @input="resetState"
                 required>
               </v-text-field>
@@ -106,15 +105,6 @@ export default Vue.extend({
   data: function () {
     return {
       rules: {
-        original: (value: string | undefined) => {
-          if (value === undefined || value === "") return true;
-          try {
-            const url = new URL(value);
-            return (url.protocol === "http:" || url.protocol === "https:") || "URL is not valid";
-          } catch (_) {
-            return "URL is not valid";
-          }
-        },
         new: (input: string | undefined) => {
           if (input === undefined || input === "") return true;
           if (input.trim().toLowerCase().match(/^[a-z0-9_-]+$/) !== null) {
