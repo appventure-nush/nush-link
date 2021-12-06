@@ -3,7 +3,8 @@ import * as yup from 'yup';
 import connection from '../config/database';
 import config from '../config/config';
 import filter from '../util/filter';
-import { AuthenticatedRequest } from '../auth/authenticatedrequest';
+import {AuthenticatedRequest} from '../auth/authenticatedrequest';
+import resolveRedirect from "../util/resolve-redirect";
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
-      let { alias } = authReq.body;
+      let {alias} = authReq.body;
       await filter.aliasFilter.validate(alias);
 
       alias = alias.toString().toLowerCase();
@@ -53,12 +54,19 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
-      let { alias } = authReq.body;
-      const { original } = authReq.body;
+      let {alias, original} = authReq.body;
       await schema.validate({
         alias,
         original,
       });
+
+      if (!original.startsWith('http')) {
+        original = `https://${original}`;
+      }
+      if (original.startsWith("https://nush.link")) {
+        throw new Error(`Cannot redirect to nush.link URL`);
+      }
+      original = await resolveRedirect(original);
 
       alias = alias.toString().toLowerCase();
       await connection.query(
