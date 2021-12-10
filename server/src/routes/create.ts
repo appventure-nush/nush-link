@@ -10,7 +10,7 @@ const router = express.Router();
 
 const schema = yup.object().shape({
   alias: filter.aliasFilter,
-  original: yup.string().trim().matches(/^(https?:\/\/)?\w+\.\w+\/?/).required(),
+  original: yup.string().trim().matches(/^(https?:\/\/)?[a-z0-9-]+\.\w+\/?/).required(),
 });
 
 router.post(
@@ -26,19 +26,13 @@ router.post(
       await filter.aliasFilter.validate(alias);
 
       alias = alias.toString().toLowerCase();
-      await connection.query(
+      const result = await connection.query(
         `SELECT 1 FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1`,
-        [alias],
-        (error, result) => {
-          if (error) return next(new Error(error.message));
-          if (result) {
-            res.json({
-              success: true,
-              result: result.rowCount > 0,
-            });
-          }
-        },
-      );
+        [alias]);
+      res.json({
+        success: true,
+        result: result.rowCount > 0,
+      });
     } catch (error) {
       next(error);
     }
@@ -72,18 +66,12 @@ router.post(
       await connection.query(
         `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creatorName, creatorEmail, createdOn)
           VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP);`,
-        [original, alias, authReq.username, authReq.email],
-        (error, result) => {
-          if (error) next(new Error(error.message));
-          if (result) {
-            res.json({
-              success: true,
-              original,
-              alias,
-            });
-          }
-        },
-      );
+        [original, alias, authReq.username, authReq.email]);
+      res.json({
+        success: true,
+        original,
+        alias,
+      });
     } catch (error) {
       next(error);
     }
