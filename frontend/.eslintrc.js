@@ -17,6 +17,9 @@ module.exports = {
     quotes: ["error", "double", {allowTemplateLiterals: true}],
     semi: "error",
     "indent": ["error", 2],
-    "prefer-const": ["error"]
+    "prefer-const": ["error"],
+    "vue/valid-v-slot": ["error", {
+      allowModifiers: true,
+    }]
   },
 };

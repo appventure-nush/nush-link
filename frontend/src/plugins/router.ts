@@ -3,6 +3,7 @@ import VueRouter, {RouteConfig} from "vue-router";
 import Main from "@/views/Main.vue";
 import Preview from "@/views/Preview.vue";
 import NotFound from "@/views/NotFound.vue";
+import Links from "@/views/Links.vue";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes: Array<RouteConfig> = [
     path: "/home",
     name: "Home",
     component: Main,
+  },
+  {
+    path: "/links",
+    name: "My Links",
+    component: Links,
   },
   {
     path: "/p/:alias",
