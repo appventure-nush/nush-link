@@ -108,7 +108,7 @@ export default Vue.extend({
       rules: {
         original: (value: string | undefined) => {
           if (value === undefined || value === "") return true;
-          if (value.trim().toLowerCase().match(/^(https?:\/\/)?\w+\.\w+\/?/)) {
+          if (value.trim().toLowerCase().match(/^(https?:\/\/)?[a-z0-9-]+\.\w+\/?/)) {
             return true;
           }
           return "Invalid URL";

@@ -6,7 +6,7 @@ import NotFound from "@/views/NotFound.vue";
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig | any> = [
+const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "NUSH.link",
