@@ -78,16 +78,16 @@ router.get(
       });
 
       const result = await connection.query(
-        `SELECT original, creatorName, creatorEmail, createdOn FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1;`,
+        `SELECT original, creator_name, creator_email, created_on FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1;`,
         [alias]);
       if (result.rowCount === 1) {
         const item = result.rows[0];
         res.json({
           success: true,
           url: item.original,
-          creator: item.creatorname,
-          creatorEmail: item.creatoremail,
-          createdOn: item.createdon.toISOString(),
+          creator: item.creator_name,
+          creatorEmail: item.creator_email,
+          createdOn: item.created_on.toISOString(),
         });
       } else {
         res.json({

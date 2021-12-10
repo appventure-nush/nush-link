@@ -64,7 +64,7 @@ router.post(
 
       alias = alias.toString().toLowerCase();
       await connection.query(
-        `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creatorName, creatorEmail, createdOn)
+        `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creator_name, creator_email, created_on)
           VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP);`,
         [original, alias, authReq.username, authReq.email]);
       res.json({

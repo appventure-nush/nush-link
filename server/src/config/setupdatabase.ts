@@ -9,9 +9,9 @@ function setupDatabase() {
       id SERIAL,
       original TEXT NOT NULL,
       alias varchar(255) NOT NULL,
-      creatorName varchar(255) NOT NULL,
-      creatorEmail varchar(255) NOT NULL,
-      createdOn TIMESTAMP NOT NULL,
+      creator_name varchar(255) NOT NULL,
+      creator_email varchar(255) NOT NULL,
+      created_on TIMESTAMP NOT NULL,
       PRIMARY KEY(id),
       UNIQUE(alias)
   );`,
