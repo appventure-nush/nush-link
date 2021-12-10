@@ -1,43 +1,5 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      v-if="user != null"
-      v-model="drawerShown"
-      temporary app>
-
-      <v-list-item>
-        <v-list-item-content>
-          <v-icon size="100">mdi-account</v-icon>
-          <v-list-item-title>
-            Welcome, {{ user.name }}!
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-      <v-list
-        dense
-        nav>
-        <router-link v-for="item in routes"
-                     :to="item.route"
-                     @click="drawerShown = false"
-                     style="text-decoration: none; color: inherit;"
-                     :key="item.name">
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ item.name }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider/>
-        </router-link>
-      </v-list>
-    </v-navigation-drawer>
     <!--    Regular page -->
     <transition name="fade">
       <v-app-bar
@@ -46,8 +8,6 @@
         dark
         v-if="route.path !== '/'"
       >
-        <v-app-bar-nav-icon v-if="user != null"
-                            @click="drawerShown = !drawerShown"/>
         <v-toolbar-title>
           {{ route.name }}
         </v-toolbar-title>
@@ -68,8 +28,6 @@
         loading="lazy"
         @load="imgLoadedMethod"
       >
-        <v-app-bar-nav-icon v-if="user != null"
-                            @click="drawerShown = !drawerShown"/>
         <v-container fill-width
                      :fill-height="!this.hideSubtitle"
                      fluid>
@@ -164,35 +122,6 @@ export default Vue.extend({
     ].map(name => `/sprites/${name}`)
   }),
   computed: {
-    routes(): Array<{
-      name: string;
-      route: string;
-      icon: string;
-    }> {
-      // Add routes here to correspond to router.ts
-      return [
-        {
-          name: "Dashboard",
-          route: "/",
-          icon: "mdi-file-table-box",
-        },
-        {
-          name: "About",
-          route: "/about",
-          icon: "mdi-information",
-        },
-        {
-          name: "Profile",
-          route: "/profile",
-          icon: "mdi-account",
-        },
-        {
-          name: "Calendar",
-          route: "/calendar",
-          icon: "mdi-calendar",
-        },
-      ];
-    },
     route() {
       return this.$route;
     },
