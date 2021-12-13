@@ -3,9 +3,13 @@
     <v-row>
       <v-col align="center" justify="center">
         <span style="font-size: 2em">
-          Create a NUSH.link!
+          {{ user ? 'C' : 'Sign in to c' }}reate a NUSH.link!
+        </span><br>
+        <span>
+          All NUSH.links are connected to your NUS High email account to prevent abuse.
         </span>
         <v-form
+          v-if="user"
           ref="form"
           v-model="valid"
           style="padding-bottom:30px"
@@ -21,7 +25,6 @@
             >
               <h3>Original URL</h3>
               <v-text-field
-                :disabled="!user"
                 x-large
                 v-model="url_original"
                 placeholder="Original URL"
@@ -43,7 +46,6 @@
                 <!-- eslint-disable-next-line vue/no-unused-vars-->
                 <template v-slot:activator="{on}">
                   <v-text-field
-                    :disabled="!user"
                     x-large
                     v-model="url_new"
                     placeholder="New URL"
@@ -62,37 +64,37 @@
               </v-tooltip>
             </v-col>
           </v-row>
-          <v-row
-            align="center"
-            justify="center"
-            class="ma-12"
-          >
-            <!--  Redirect user to sign in if they are not signed in -->
-            <v-btn
-              v-if="!user"
-              :disabled="!valid"
-              color="primary"
-              x-large
-              @click="signIn">
-              Sign in to create link
-            </v-btn>
-            <!--  Users can only create links when signed in -->
-            <v-btn
-              v-else-if="!success"
-              :disabled="!valid"
-              color="primary"
-              x-large
-              @click="create">
-              Create
-            </v-btn>
-            <!-- Success -->
-            <v-btn v-else-if="success"
-                   color="success"
-                   x-large>
-              Link created!
-            </v-btn>
-          </v-row>
         </v-form>
+        <v-row
+          align="center"
+          justify="center"
+          class="ma-12"
+        >
+          <!--  Redirect user to sign in if they are not signed in -->
+          <v-btn
+            v-if="!user"
+            :disabled="!valid"
+            color="primary"
+            x-large
+            @click="signIn">
+            Sign in
+          </v-btn>
+          <!--  Users can only create links when signed in -->
+          <v-btn
+            v-else-if="!success"
+            :disabled="!valid"
+            color="primary"
+            x-large
+            @click="create">
+            Create
+          </v-btn>
+          <!-- Success -->
+          <v-btn v-else-if="success"
+                 color="success"
+                 x-large>
+            Link created!
+          </v-btn>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -150,8 +152,8 @@ export default Vue.extend({
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"},
         body: JSON.stringify({
-          alias: this.url_new,
-          original: this.url_original
+          alias: this.url_new.trim(),
+          original: this.url_original.trim()
         })
       }).then(response => response.json()).then((data) => {
         if (data.success) {
@@ -166,7 +168,7 @@ export default Vue.extend({
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"},
         body: JSON.stringify({
-          alias: this.url_new,
+          alias: this.url_new.trim(),
         })
       }).then(response => response.json()).then((data) => {
         if (data.success) {
