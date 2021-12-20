@@ -60,7 +60,6 @@
     </div>
     <v-footer
       :fixed="route.path !== '/'"
-      :absolute="route.path === '/'"
       :padless="true"
     >
       <v-card
