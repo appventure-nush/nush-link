@@ -82,7 +82,6 @@
           <!--  Users can only create links when signed in -->
           <v-btn
             v-else-if="!success"
-            :disabled="!valid || url_original.length === 0 || url_new.length === 0 "
             color="primary"
             x-large
             @click="create">

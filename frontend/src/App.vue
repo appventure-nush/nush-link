@@ -138,7 +138,6 @@ export default Vue.extend({
     window.addEventListener("scroll", this.onScroll);
     this.interval = setInterval(this.setImage, 20000);
     this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
-    console.log(this.img);
     getUserData().then(data => {
       this.$store.commit("user", data);
     });

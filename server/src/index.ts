@@ -8,6 +8,7 @@ import path from 'path';
 import auth from './auth/middleware';
 import setupDatabase from './config/setupdatabase';
 import create from './routes/create';
+import deleteRoute from './routes/delete';
 import retrieve from './routes/retrieve';
 import me from './routes/me';
 import login from './routes/auth';
@@ -30,11 +31,13 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Authentication required to create and get user info
+// Authentication required to modify links and get user info
 app.use('/api/create', auth() as Application);
+app.use('/api/delete', auth() as Application);
 app.use('/api/me', auth() as Application);
 // define a route to handle creation
 app.use('/api/create', create);
+app.use('/api/delete', deleteRoute);
 
 // Route to get data about current user
 app.use('/api/me', me);

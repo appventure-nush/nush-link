@@ -35,12 +35,13 @@ router.get(
     try {
       const authReq = req as AuthenticatedRequest;
       const result = await connection.query(
-        `SELECT alias, original, created_on FROM ${config.DB_URL_REDIRECT_TABLE}
+        `SELECT id, alias, original, created_on FROM ${config.DB_URL_REDIRECT_TABLE}
           WHERE creator_email = $1;`,
         [authReq.email]);
       return res.json({
         success: true,
         links: result.rows.map(row => ({
+          id: row.id,
           alias: row.alias,
           url: row.original,
           createdOn: row.created_on,
