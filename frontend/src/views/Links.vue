@@ -26,6 +26,10 @@ export default Vue.extend({
       table: {
         headers: [
           {
+            text: "S/N",
+            value: "id"
+          },
+          {
             text: "Link Alias",
             value: "alias"
           },
