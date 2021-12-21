@@ -55,6 +55,7 @@
         <v-row
           align="center"
           justify="center"
+          class="my-6"
         >
           <!--  Redirect user to sign in if they are not signed in -->
           <v-btn
@@ -75,6 +76,7 @@
             persistent>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                x-large
                 :disabled="!valid || url_new.length === 0 || url_original.length === 0"
                 color="primary"
                 v-bind="attrs"
