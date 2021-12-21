@@ -38,29 +38,17 @@
               sm="4"
             >
               <h3>Customized URL</h3>
-              <v-tooltip
-                v-model="copied"
-                right
-              >
-                <!-- eslint-disable-next-line vue/no-unused-vars-->
-                <template v-slot:activator="{on}">
-                  <v-text-field
-                    x-large
-                    v-model="url_new"
-                    placeholder="New URL"
-                    prefix="nush.link/"
-                    :rules="[rules.new]"
-                    @input="resetState"
-                    @change="checkAvailability"
-                    append-outer-icon="mdi-content-copy"
-                    @click:append-outer="copyLink"
-                    :error="url_new_error.length > 0"
-                    :error-messages="url_new_error"
-                    required>
-                  </v-text-field>
-                </template>
-                Copied!
-              </v-tooltip>
+              <v-text-field
+                x-large
+                v-model="url_new"
+                placeholder="New URL"
+                prefix="nush.link/"
+                :rules="[rules.new]"
+                @change="checkAvailability"
+                :error="url_new_error.length > 0"
+                :error-messages="url_new_error"
+                required>
+              </v-text-field>
             </v-col>
           </v-row>
         </v-form>
@@ -78,19 +66,32 @@
             Sign in
           </v-btn>
           <!--  Users can only create links when signed in -->
-          <v-btn
-            v-else-if="!success"
-            color="primary"
-            x-large
-            @click="create">
-            Create
-          </v-btn>
-          <!-- Success -->
-          <v-btn v-else-if="success"
-                 color="success"
-                 x-large>
-            Link created!
-          </v-btn>
+          <!-- Make the dialog persistent to prevent accidental closure -->
+          <v-dialog
+            v-if="user"
+            v-model="dialog"
+            width="500"
+            height="500"
+            persistent>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                :disabled="!valid || url_new.length === 0 || url_original.length === 0"
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+                @click="create"
+              >
+                Create
+              </v-btn>
+            </template>
+            <create-link-popup
+              :alias="url_new"
+              :original="url_original"
+              :success="success"
+              :error="dialog_error"
+              @close="resetForm"
+            />
+          </v-dialog>
         </v-row>
       </v-col>
     </v-row>
@@ -115,9 +116,13 @@
 
 <script lang="ts">
 import Vue from "vue";
+import CreateLinkPopup from "@/components/CreateLinkPopup.vue";
 
 export default Vue.extend({
   name: "Main",
+  components: {
+    CreateLinkPopup
+  },
   data: function () {
     return {
       rules: {
@@ -140,12 +145,11 @@ export default Vue.extend({
       valid: true,
       url_original: "",
       url_new: "",
+      url_new_error: "",
       success: false,
 
-      copied: false,
-      copyTimer: -1,
-
-      url_new_error: ""
+      dialog: false,
+      dialog_error: "",
     };
   },
   computed: {
@@ -161,6 +165,7 @@ export default Vue.extend({
   },
   methods: {
     create() {
+      this.success = false;
       fetch(`/api/create`, {
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"},
@@ -172,7 +177,7 @@ export default Vue.extend({
         if (data.success) {
           this.success = true;
         } else if (typeof data.message !== "undefined") {
-          console.log(data.message);
+          this.dialog_error = data.message;
         }
       });
     },
@@ -200,19 +205,15 @@ export default Vue.extend({
       });
     },
     resetState() {
-      this.copied = false;
       this.success = false;
+      this.dialog = false;
+      this.url_new_error = "";
+      this.dialog_error = "";
     },
-    copyLink() {
-      navigator.clipboard.writeText("https://nush.link/" + this.url_new).then(() => {
-        this.copied = true;
-        if (this.copyTimer != -1) {
-          clearTimeout(this.copyTimer);
-        }
-        this.copyTimer = setTimeout(() => {
-          this.copied = false;
-        }, 750);
-      });
+    resetForm() {
+      this.url_new = "";
+      this.url_original = "";
+      this.resetState();
     },
     signIn() {
       location.href = `https://login.microsoftonline.com/d72a7172-d5f8-4889-9a85-d7424751592a/oauth2/authorize?` +
