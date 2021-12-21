@@ -6,13 +6,12 @@
           {{ user ? 'C' : 'Sign in to c' }}reate a NUSH.link!
         </span><br>
         <span>
-          All NUSH.links are connected to your NUS High email account to prevent abuse.
+          All NUSH.links are connected to a NUS High email account to prevent abuse.
         </span>
         <v-form
           v-if="user"
           ref="form"
           v-model="valid"
-          style="padding-bottom:30px"
           lazy-validation>
           <v-row
             align="center"
@@ -68,7 +67,6 @@
         <v-row
           align="center"
           justify="center"
-          class="ma-12"
         >
           <!--  Redirect user to sign in if they are not signed in -->
           <v-btn
@@ -94,6 +92,22 @@
             Link created!
           </v-btn>
         </v-row>
+      </v-col>
+    </v-row>
+    <v-row v-if="user">
+      <v-divider/>
+    </v-row>
+    <v-row
+      v-if="user">
+      <v-col align="center" justify="center">
+        <span style="font-size: 2em">Already created a NUSH.link?</span><br>
+        <v-btn
+          @click="$router.push('/links')"
+          class="ma-4"
+          color="primary"
+          x-large>
+          View your links
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>

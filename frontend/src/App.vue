@@ -3,6 +3,13 @@
         <!--    Regular page -->
         <transition name="fade">
             <v-app-bar app dense fixed color="primary" dark v-if="route.path !== '/'">
+                <v-icon
+                  class="mr-4"
+                  v-if="route.path !== '/'"
+                  @click="$router.push('/')"
+                >
+                  mdi-arrow-left
+                </v-icon>
                 <v-toolbar-title>
                     {{ route.name }}
                 </v-toolbar-title>
