@@ -10,6 +10,6 @@ module.exports = {
       .loader("ts-loader");
   },
   devServer: {
-    proxy: "https://nush.link"
+    proxy: "http://localhost:5000"
   }
 };

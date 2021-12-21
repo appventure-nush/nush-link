@@ -5,7 +5,15 @@ export default async function resolveRedirect(url: string, depth: number = 0): P
   if (depth > 10) {
     throw new Error(`Too many redirects: ${url}`);
   }
-  const response = await fetch(url);
+  let response;
+  try {
+    response = await fetch(url, {
+      timeout: 5000,
+    });
+  } catch (e) {
+    console.log(url, e.message);
+    throw new Error(`${url} doesn't seem like a valid site.`);
+  }
   if (response.url.startsWith("https://nush.link")) {
     throw new Error(`Cannot redirect to nush.link URL`);
   }
