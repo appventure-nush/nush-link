@@ -34,7 +34,7 @@
         </transition>
 
         <!--    Accommodate picture on main page-->
-        <div :style="route.path === '/' ? {'margin-top': height + 'px', height: height+'px'} : {'margin-top':  '60px'}">
+        <div :style="route.path === '/' ? {'margin-top': height + 'px', minHeight: height+'px'} : {'margin-top':  '60px'}">
             <router-view />
         </div>
         <v-footer :fixed="route.path !== '/'" :padless="true">
