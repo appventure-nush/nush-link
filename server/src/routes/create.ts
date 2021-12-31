@@ -22,10 +22,9 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
-      let {alias} = authReq.body;
+      const {alias} = authReq.body;
       await filter.aliasFilter.validate(alias);
 
-      alias = alias.toString().toLowerCase();
       const result = await connection.query(
         `SELECT 1 FROM ${config.DB_URL_REDIRECT_TABLE} WHERE alias = $1`,
         [alias]);
@@ -48,7 +47,8 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
-      let {alias, original} = authReq.body;
+      const {alias} = authReq.body;
+      let {original} = authReq.body;
       await schema.validate({
         alias,
         original,
@@ -62,7 +62,6 @@ router.post(
       }
       original = await resolveRedirect(original);
 
-      alias = alias.toString().toLowerCase();
       await connection.query(
         `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creator_name, creator_email, created_on)
           VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP);`,
