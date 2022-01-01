@@ -234,7 +234,7 @@ export default Vue.extend({
 
     isTeacher(email: string) {
       if(email == "appventure@nushigh.edu.sg") return true;
-      return email.startsWith("nhs") && email.endsWith("@nus.edu.sg");
+      return email.startsWith("nhs") && email.endsWith("@nushigh.edu.sg");
     }
   },
 });

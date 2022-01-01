@@ -48,7 +48,7 @@ router.post(
     try {
       const authReq = req as AuthenticatedRequest;
       if(authReq.email !== "appventure@nushigh.edu.sg"){
-        if(!(authReq.email.startsWith("nhs") && authReq.email.endsWith("@nus.edu.sg"))){
+        if(!(authReq.email.startsWith("nhs") && authReq.email.endsWith("@nushigh.edu.sg"))){
           throw new Error("You are not allowed to create links");
         }
       }
