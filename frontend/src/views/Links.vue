@@ -16,7 +16,7 @@
                 {{ new Date(item.createdOn).toLocaleDateString() }}
             </template>
         </v-data-table>
-        <v-btn tile @click="showDeleteSelectedDialog()" color="error">
+        <v-btn tile @click="showDeleteSelectedDialog()" color="error" :disabled="this.selected.length == 0">
             <v-icon left>
                 mdi-delete
             </v-icon>
