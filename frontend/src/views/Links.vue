@@ -28,7 +28,7 @@
                 <v-card-title>Delete</v-card-title>
                 <v-card-text>Are you sure you want to delete <a :href="'https://nush.link/'+itemToDelete.alias">nush.link/{{itemToDelete.alias}}</a>?</v-card-text>
                 <v-card-actions>
-                    <v-btn color="primary" text @click="dialogDelete = false">Close</v-btn>
+                    <v-btn color="primary" text @click="dialogDelete = false">Cancel</v-btn>
                     <v-btn color="error" text @click="deleteItem()">Delete</v-btn>
                 </v-card-actions>
             </v-card>
@@ -44,7 +44,7 @@
                   </template>
                 </v-data-table>
                 <v-card-actions>
-                    <v-btn color="primary" text @click="dialogDeleteAll = false">Close</v-btn>
+                    <v-btn color="primary" text @click="dialogDeleteAll = false">Cancel</v-btn>
                     <v-btn color="error" text @click="deleteSelected()" :disabled="this.deletions.length == 0">Delete</v-btn>
                 </v-card-actions>
             </v-card>
