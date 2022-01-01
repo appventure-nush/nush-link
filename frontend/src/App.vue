@@ -34,10 +34,10 @@
         </transition>
 
         <!--    Accommodate picture on main page-->
-        <div :style="route.path === '/' ? {'margin-top': height + 'px', minHeight: height+'px'} : {'margin-top':  '60px'}">
+        <div :style="route.path === '/' ? {'margin-top': height + 'px', minHeight: height+'px'} : {'margin-top':  '60px', minHeight: height+'px'}">
             <router-view />
         </div>
-        <v-footer :fixed="route.path !== '/'" :padless="true">
+        <v-footer :padless="true">
             <v-card dark flat tile width="100%" class="text-center lighten-1">
                 <v-card-text>
                     <v-btn class="mx-4" icon href="https://nush.app/" target="_blank" v-ripple="false">
