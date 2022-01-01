@@ -47,6 +47,11 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
+      if(authReq.email !== "appventure@nushigh.edu.sg"){
+        if(!(authReq.email.startsWith("nhs") && authReq.email.endsWith("@nus.edu.sg"))){
+          throw new Error("You are not allowed to create links");
+        }
+      }
       const {alias} = authReq.body;
       let {original} = authReq.body;
       await schema.validate({

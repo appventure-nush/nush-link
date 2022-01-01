@@ -2,14 +2,22 @@
   <v-container fluid fill-height fill-width align="center" justify="center">
     <v-row>
       <v-col align="center" justify="center">
-        <span style="font-size: 2em">
-          {{ user ? 'C' : 'Sign in to c' }}reate a NUSH.link!
-        </span><br>
-        <span>
+        <span v-if="user && !isTeacher(user.email)">
+          <span style="font-size: 2em"> NUSH.link is in beta!</span><br>
+          Creating a NUSH.link is currently limited to teachers and staff with a @nus.edu.sg email address.<br>
+          Check back soon!
+        </span>
+        <span v-else>
+          <span v-if="user" style="font-size: 2em">
+          Create a NUSH.link!
+          </span>
+          <span v-else style="font-size: 2em">
+            Sign in to create a NUSH.link!
+          </span><br>
           All NUSH.links are connected to a NUS High email account to prevent abuse.
         </span>
         <v-form
-          v-if="user"
+          v-if="user && isTeacher(user.email)"
           ref="form"
           v-model="valid"
           lazy-validation>
@@ -69,7 +77,7 @@
           <!--  Users can only create links when signed in -->
           <!-- Make the dialog persistent to prevent accidental closure -->
           <v-dialog
-            v-if="user"
+            v-if="user && isTeacher(user.email)"
             v-model="dialog"
             width="500"
             height="500"
@@ -222,6 +230,11 @@ export default Vue.extend({
         `client_id=2f4b388c-143a-42b2-b69c-ff8531d58cda&` +
         `redirect_uri=${location.origin}/api/auth/login&` +
         `response_type=id_token&nonce=nush-link&response_mode=form_post`;
+    },
+
+    isTeacher(email: string) {
+      if(email == "appventure@nushigh.edu.sg") return true;
+      return email.startsWith("nhs") && email.endsWith("@nus.edu.sg");
     }
   },
 });
