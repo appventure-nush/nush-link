@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>
         <!-- TODO: beautify -->
-        This nush.link does not exist!
+        This nush.link does not exist! Have you checked that the link you entered is correct, including casing?
         <v-spacer/>
       </v-card-title>
     </v-card>
@@ -12,8 +12,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {LinkData} from "@/types/LinkData";
-import {getLinkData} from "@/api/links";
 
 export default Vue.extend({
   name: "NotFound",
