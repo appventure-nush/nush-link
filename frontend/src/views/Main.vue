@@ -36,7 +36,6 @@
                 v-model="url_original"
                 placeholder="Original URL"
                 :rules="[rules.original]"
-                @input="resetState"
                 required>
               </v-text-field>
               <v-spacer/>
@@ -52,9 +51,11 @@
                 placeholder="New URL"
                 prefix="nush.link/"
                 :rules="[rules.new]"
-                @change="checkAvailability"
+                @input="checkAvailability"
                 :error="url_new_error.length > 0"
                 :error-messages="url_new_error"
+                :loading="checked_alias.length === 0 && url_new.length > 0 && !url_new_error.length"
+                :append-icon="checked_alias === url_new && url_new.length > 0 ? 'mdi-check' : ''"
                 required>
               </v-text-field>
             </v-col>
@@ -85,7 +86,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 x-large
-                :disabled="!valid || url_new.length === 0 || url_original.length === 0"
+                :disabled="!valid || !url_new || url_original.length === 0 || checked_alias !== url_new.trim()"
                 color="primary"
                 v-bind="attrs"
                 v-on="on"
@@ -148,7 +149,6 @@ export default Vue.extend({
           if (input.trim().toLowerCase().match(/^[a-z0-9_-]+$/) !== null) {
             return true;
           }
-          this.$data.url_new_error = "";
           return "Invalid Alias for the New URL";
         }
       },
@@ -156,6 +156,7 @@ export default Vue.extend({
       url_original: "",
       url_new: "",
       url_new_error: "",
+      checked_alias: "",
       success: false,
 
       dialog: false,
@@ -192,11 +193,14 @@ export default Vue.extend({
       });
     },
     checkAvailability() {
+      this.checked_alias = "";
+      this.url_new_error = "";
+      const alias = this.url_new.trim();
       fetch(`/api/create/check`, {
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"},
         body: JSON.stringify({
-          alias: this.url_new.trim(),
+          alias,
         })
       }).then(response => response.json()).then((data) => {
         if (data.success) {
@@ -211,6 +215,7 @@ export default Vue.extend({
           }
           this.url_new_error = "Invalid alias";
         }
+        this.checked_alias = alias;
         this.url_new_error = "";
       });
     },
@@ -233,7 +238,7 @@ export default Vue.extend({
     },
 
     isTeacher(email: string) {
-      if(email == "appventure@nushigh.edu.sg") return true;
+      if (email == "appventure@nushigh.edu.sg" || email == "h1710074@nushigh.edu.sg") return true;
       return email.startsWith("nhs") && email.endsWith("@nushigh.edu.sg");
     }
   },
