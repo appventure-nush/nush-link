@@ -70,14 +70,14 @@ export default Vue.extend({
     drawerShown: false,
     font: window.innerWidth < 1000 ? 3 * 0.75 : 3,
     hideSubtitle: false,
-    img: "/sprites/ecogarden.jpg",
+    img: "/sprites/ecogarden.webp",
     interval: 0,
     imgIsLoaded: false,
     imgList: [
-      "ecogarden.jpg", "nushclose.jpg", "nushdiscover.jpg", "frontview.jpg", "nushconvo.jpg",
-      "nushlibrary.jpg", "nushbig.jpg", "elig.jpg", "school-bg.png", "nush-generic.jpeg",
-      "nushpeople.jpg", "boarding.jpg", "boarding-day.jpg", "concourse.jpg",
-      ...([1, 3].map(n => `yuen${n}.jpg`))
+      "ecogarden.webp", "DE.webp", "nushdiscover.webp", "frontview.webp", "nushconvo.webp",
+      "Lib.webp", "nushbig.webp", "2019Year1s.webp", "school-bg.png", "nush-generic.webp",
+      "nushpeople.webp", "boarding.webp", "boarding-day.webp", "concourse.webp","bio.webp",
+      ...([1, 3].map(n => `yuen${n}.webp`))
     ].map(name => `/sprites/${name}`)
   }),
   computed: {
@@ -96,7 +96,7 @@ export default Vue.extend({
   },
   mounted() {
     window.addEventListener("scroll", this.onScroll);
-    this.interval = setInterval(this.setImage, 20000);
+    this.interval = setInterval(this.setImage, 2000);
     this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
     getUserData().then(data => {
       this.$store.commit("user", data);
