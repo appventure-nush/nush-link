@@ -6,9 +6,9 @@ import filter from '../util/filter';
 import {AuthenticatedRequest} from '../auth/authenticatedrequest';
 import resolveRedirect from "../util/resolve-redirect";
 
-const router = express.Router();
+export const router = express.Router();
 
-const schema = yup.object().shape({
+export const schema = yup.object().shape({
   alias: filter.aliasFilter,
   original: yup.string().trim().matches(/^(https?:\/\/)?[a-z0-9-]+\.\w+\/?/).required(),
 });
@@ -81,5 +81,3 @@ router.post(
     }
   },
 );
-
-export = router;
