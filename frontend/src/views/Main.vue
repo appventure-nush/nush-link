@@ -14,7 +14,9 @@
           <span v-else style="font-size: 2em">
             Sign in to create a NUSH.link!
           </span><br>
-          All NUSH.links are connected to a NUS High email account to prevent abuse.
+          All NUSH.links are connected to a NUS High email account to prevent abuse.<br><br>
+          Need help? Check out the <a href="https://github.com/appventure-nush/nush-link/wiki"
+                                      target="_blank">wiki</a>!
         </span>
         <v-form
           v-if="user && isTeacher(user.email)"
@@ -238,8 +240,11 @@ export default Vue.extend({
     },
 
     isTeacher(email: string) {
-      if (email == "appventure@nushigh.edu.sg" || email == "h1710074@nushigh.edu.sg") return true;
-      return email.startsWith("nhs") && email.endsWith("@nushigh.edu.sg");
+      const allowed = ["anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
+      if (!email.endsWith("@nushigh.edu.sg")) return false;
+      for (const allowedEmail of allowed) {
+        if (email.startsWith(allowedEmail)) return true;
+      }
     }
   },
 });
