@@ -27,6 +27,7 @@
                                     An AppVenture Project
                                 </span>
                             </v-toolbar-title>
+                            <a v-if="!this.hideSubtitle" href="#" v-scroll-to="'#intro'" class="back-to-top"><v-icon>mdi-arrow-down</v-icon></a>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -123,7 +124,7 @@ export default Vue.extend({
     },
     imgLoadedMethod() {
       this.imgIsLoaded = true;
-    }
+    },
   }
 });
 </script>
@@ -155,5 +156,23 @@ export default Vue.extend({
 
     .v-ripple__container {
         opacity: 0 !important;
+    }
+
+    .back-to-top {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+        z-index: 996;
+        /* background: #0078ff; */
+        background: #00a8a9;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        /* transition: all 0.4s; */
+        align-items: center!important;
+        justify-content: center!important;
+        display: flex!important;
+        box-sizing: border-box;
+        text-decoration: none;
     }
 </style>

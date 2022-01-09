@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height fill-width align="center" justify="center">
+  <v-container fluid fill-height fill-width align="center" justify="center" id="intro">
     <v-row>
       <v-col align="center" justify="center">
         <span v-if="user && !isTeacher(user.email)">
