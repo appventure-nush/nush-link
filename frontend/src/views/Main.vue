@@ -82,7 +82,7 @@
           <v-dialog
             v-if="user && isTeacher(user.email)"
             v-model="dialog"
-            width="500"
+            width="600px"
             height="500"
             persistent>
             <template v-slot:activator="{ on, attrs }">
