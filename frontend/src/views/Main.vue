@@ -240,7 +240,7 @@ export default Vue.extend({
     },
 
     isTeacher(email: string) {
-      const allowed = ["anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
+      const allowed = ["anhstjyl", "anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
       if (!email.endsWith("@nushigh.edu.sg")) return false;
       for (const allowedEmail of allowed) {
         if (email.startsWith(allowedEmail)) return true;

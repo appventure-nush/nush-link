@@ -47,7 +47,7 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
-      const allowed = ["anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
+      const allowed = ["anhstjyl","anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
       if (!authReq.email.endsWith("@nushigh.edu.sg")) throw new Error("You are not allowed to create redirects");
       if (!allowed.some(x => authReq.email.startsWith(x))) throw new Error("You are not allowed to create redirects");
       const {alias} = authReq.body;
