@@ -63,7 +63,7 @@ router.post(
       if (original.startsWith("https://nush.link")) {
         throw new Error(`Cannot redirect to nush.link URL`);
       }
-      original = await resolveRedirect(original);
+      original = await resolveRedirect(original, original);
 
       await connection.query(
         `INSERT INTO ${config.DB_URL_REDIRECT_TABLE} (original, alias, creator_name, creator_email, created_on)

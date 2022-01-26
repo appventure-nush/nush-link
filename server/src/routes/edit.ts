@@ -34,7 +34,7 @@ router.patch(
       if (original.startsWith("https://nush.link")) {
         throw new Error(`Cannot redirect to nush.link URL`);
       }
-      original = await resolveRedirect(original);
+      original = await resolveRedirect(original, original);
 
       const out = await connection.query(
         `UPDATE ${config.DB_URL_REDIRECT_TABLE} SET (original, alias) = ($1, $2) WHERE id = $3 AND creator_email = $4;`,
