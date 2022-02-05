@@ -18,14 +18,10 @@ export default async function resolveRedirect(url: string, original: string, dep
     throw new Error(`Cannot redirect to nush.link URL`);
   }
 
-  if (response.url.includes("login")) {
-    return original;
-  }
-
   if (response.status === 301 || response.status === 302) {
     return resolveRedirect(response.url, original, depth + 1);
   }
 
-  return response.url;
+  return original;
 }
 
