@@ -36,7 +36,7 @@ router.get(
       const authReq = req as AuthenticatedRequest;
       const result = await connection.query(
         `SELECT id, alias, original, created_on FROM ${config.DB_URL_REDIRECT_TABLE}
-          WHERE creator_email = $1;`,
+          WHERE creator_email = $1 ORDER BY created_on DESC ;`,
         [authReq.email]);
       return res.json({
         success: true,

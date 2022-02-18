@@ -13,9 +13,14 @@
           <v-icon
             @click="saveItem(item)"
             color="success"
-            v-if="itemToEdit && item.id === itemToEdit.id">
+            v-if="itemToEdit && item.id === itemToEdit.id && !editLoading">
             mdi-check
           </v-icon>
+          <v-progress-circular v-if="itemToEdit && item.id === itemToEdit.id && editLoading"
+                               size="20"
+                               indeterminate
+                               color="primary"
+          ></v-progress-circular>
           <v-icon @click="showDeleteDialog(item)" color="error">
             mdi-delete
           </v-icon>
@@ -28,6 +33,8 @@
         <v-text-field v-else
                       v-model="item.alias"
                       dense
+                      @input="aliasError = null"
+                      :error-messages="aliasError"
         />
       </template>
 
@@ -38,6 +45,8 @@
         <v-text-field v-else
                       v-model="item.url"
                       dense
+                      @input="urlError = null"
+                      :error-messages="urlError"
         />
       </template>
       <template v-slot:item.createdOn="{ item }">
@@ -94,7 +103,7 @@ import {
 import {
   LinkData
 } from "@/types/LinkData";
-import {deleteLink} from "@/api/links";
+import {deleteLink, editLink} from "@/api/links";
 
 export default Vue.extend({
   data(): {
@@ -105,6 +114,9 @@ export default Vue.extend({
     dialogDeleteAll: boolean,
     itemToDelete: LinkData | null,
     itemToEdit: LinkData | null,
+    urlError: string|null,
+    aliasError: string|null,
+    editLoading: boolean,
     table: any
     } {
     return {
@@ -115,6 +127,9 @@ export default Vue.extend({
       dialogDeleteAll: false,
       itemToDelete: null,
       itemToEdit: null,
+      urlError: null,
+      aliasError: null,
+      editLoading: false,
       table: {
         headers: [
           {
@@ -152,8 +167,19 @@ export default Vue.extend({
       this.itemToEdit = item;
     },
     saveItem(item: LinkData) {
-      console.log("save", item);
-      this.itemToEdit = null;
+      this.editLoading = true;
+      editLink(item.id, {original: item.url, alias: item.alias}).then(() => {
+        this.itemToEdit = null;
+        this.loadUserLinks();
+      }).catch((error: Error) => {
+        if (error.message.includes("duplicate")) {
+          this.aliasError = "This alias is already in use.";
+        } else {
+          this.urlError = error.message;
+        }
+      }).finally(() => {
+        this.editLoading = false;
+      });
     },
 
     async deleteItem() {
@@ -163,7 +189,8 @@ export default Vue.extend({
       await deleteLink(this.itemToDelete.id);
       this.loadUserLinks();
       this.dialogDelete = false;
-    },
+    }
+    ,
     async deleteSelected() {
       for (const item of this.deletions) {
         const index = this.links.indexOf(item);
@@ -174,7 +201,8 @@ export default Vue.extend({
       this.dialogDeleteAll = false;
       this.selected = [];
       this.deletions = [];
-    },
+    }
+    ,
     loadUserLinks() {
       getUserLinks().then(links => {
         this.$data.links = links;
@@ -184,11 +212,14 @@ export default Vue.extend({
   computed: {
     user() {
       return this.$store.state.user;
-    },
+    }
+    ,
 
-  },
+  }
+  ,
   mounted() {
     this.loadUserLinks();
   }
-});
+})
+;
 </script>
