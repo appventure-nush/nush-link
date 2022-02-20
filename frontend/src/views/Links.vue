@@ -2,7 +2,7 @@
   <v-container>
     <v-data-table v-model="selected" :headers="table.headers" :items="links" show-select>
       <template v-slot:item.actions="{ item }">
-        <div class="text-truncate">
+        <v-row>
           <v-icon
             @click="editItem(item)"
             color="blue"
@@ -24,7 +24,7 @@
           <v-icon @click="showDeleteDialog(item)" color="error">
             mdi-delete
           </v-icon>
-        </div>
+        </v-row>
       </template>
 
       <!--       Alias slot -->
