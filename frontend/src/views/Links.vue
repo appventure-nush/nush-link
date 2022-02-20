@@ -40,14 +40,16 @@
 
       <!--    URL slot -->
       <template v-slot:item.url="{ item }">
-        <a v-if="!itemToEdit || itemToEdit.id !== item.id" :href="item.url"
-           target="_blank">{{ item.url }}</a>
-        <v-text-field v-else
-                      v-model="item.url"
-                      dense
-                      @input="urlError = null"
-                      :error-messages="urlError"
-        />
+        <div style="overflow-wrap: anywhere">
+          <a v-if="!itemToEdit || itemToEdit.id !== item.id" :href="item.url"
+             target="_blank">{{ item.url }}</a>
+          <v-text-field v-else
+                        v-model="item.url"
+                        dense
+                        @input="urlError = null"
+                        :error-messages="urlError"
+          />
+        </div>
       </template>
       <template v-slot:item.createdOn="{ item }">
         {{ new Date(item.createdOn).toLocaleDateString() }}
@@ -114,8 +116,8 @@ export default Vue.extend({
     dialogDeleteAll: boolean,
     itemToDelete: LinkData | null,
     itemToEdit: LinkData | null,
-    urlError: string|null,
-    aliasError: string|null,
+    urlError: string | null,
+    aliasError: string | null,
     editLoading: boolean,
     table: any
     } {
@@ -138,7 +140,7 @@ export default Vue.extend({
           },
           {
             text: "URL",
-            value: "url"
+            value: "url",
           },
           {
             text: "Created On",
