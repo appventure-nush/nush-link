@@ -22,6 +22,9 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
+      if(!authReq.can_create_redirect){
+        throw new Error("You are not authorized to create redirects");
+      }
       const {alias} = authReq.body;
       await filter.aliasFilter.validate(alias);
 
@@ -47,15 +50,15 @@ router.post(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
-      const allowed = ["anhstjyl","anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
-      if (!authReq.email.endsWith("@nushigh.edu.sg")) throw new Error("You are not allowed to create redirects");
-      if (!allowed.some(x => authReq.email.startsWith(x))) throw new Error("You are not allowed to create redirects");
+      if(!authReq.can_create_redirect){
+        throw new Error("You are not authorized to create redirects");
+      }
       const {alias} = authReq.body;
       let {original} = authReq.body;
       await schema.validate({
         alias,
         original,
-      });
+      }, { strict: true });
 
       if (!original.startsWith('http')) {
         original = `https://${original}`;

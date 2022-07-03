@@ -17,6 +17,8 @@ router.get(
       res.json({
         name: authReq.username,
         email: authReq.email,
+        can_create_redirect: authReq.can_create_redirect,
+        can_authorize_students: authReq.can_authorize_students
       });
       return;
     } catch (error) {

@@ -8,8 +8,10 @@ const aliasFilter = yup
   .string()
   .trim()
   .lowercase()
+  .max(255, "Alias too long")
   .notOneOf(banned)
-  .matches(allowedRegex);
+  .matches(allowedRegex)
+  .required();
 
 export default {
   banned,

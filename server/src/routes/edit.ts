@@ -16,6 +16,9 @@ router.patch(
   ) => {
     try {
       const authReq = req as AuthenticatedRequest;
+      if(!authReq.can_create_redirect){
+        throw new Error("You are not authorized to create redirects");
+      }
       const {id: idString} = authReq.params;
       const id = parseInt(idString, 10);
       if (isNaN(id) || id < 0) {

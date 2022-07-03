@@ -13,6 +13,7 @@ import editRoute from './routes/edit';
 import retrieve from './routes/retrieve';
 import me from './routes/me';
 import login from './routes/auth';
+import authorize_student from './routes/authorize_student';
 import config from './config/config';
 import HttpException from './exceptions/HttpException';
 
@@ -37,6 +38,7 @@ app.use('/api/create', auth() as Application);
 app.use('/api/delete', auth() as Application);
 app.use('/api/edit', auth() as Application);
 app.use('/api/me', auth() as Application);
+app.use('/api/authorize_student', auth() as Application);
 // define a route to handle creation
 app.use('/api/create', create);
 app.use('/api/delete', deleteRoute);
@@ -45,6 +47,8 @@ app.use('/api/edit', editRoute);
 // Route to get data about current user
 app.use('/api/me', me);
 app.use('/api/auth', login);
+
+app.use('/api/authorize_student', authorize_student);
 
 // define a route handler for ids
 app.use('/', retrieve);
