@@ -16,6 +16,14 @@ const store = new Vuex.Store<State>({
     user(state: State, user: UserData | null) {
       state.user = user;
     }
+  },
+  getters: {
+    canCreateRedirect(state): boolean {
+      return state.user?.can_create_redirect == true;
+    },
+    canAuthorizeStudents(state): boolean {
+      return state.user?.can_authorize_students == true;
+    }
   }
 });
 

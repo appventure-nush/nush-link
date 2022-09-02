@@ -2,10 +2,9 @@
   <v-container fluid fill-height fill-width align="center" justify="center" id="intro">
     <v-row>
       <v-col align="center" justify="center">
-        <span v-if="user && !isTeacher(user.email)">
-          <span style="font-size: 2em"> NUSH.link is in beta!</span><br>
-          Creating a NUSH.link is currently limited to teachers and staff with a @nus.edu.sg email address.<br>
-          Check back soon!
+        <span v-if="user && !canCreateRedirect">
+          <span style="font-size: 2em"> Please ask a teacher for access to NUSH.link!</span><br>
+          Once a staff member has authorized your email, you can start using NUSH.link!
         </span>
         <span v-else>
           <span v-if="user" style="font-size: 2em">
@@ -19,7 +18,7 @@
                                       target="_blank">wiki</a>!
         </span>
         <v-form
-          v-if="user && isTeacher(user.email)"
+          v-if="user && canCreateRedirect"
           ref="form"
           v-model="valid"
           lazy-validation>
@@ -80,7 +79,7 @@
           <!--  Users can only create links when signed in -->
           <!-- Make the dialog persistent to prevent accidental closure -->
           <v-dialog
-            v-if="user && isTeacher(user.email)"
+            v-if="user && canCreateRedirect"
             v-model="dialog"
             width="600px"
             height="500"
@@ -175,6 +174,12 @@ export default Vue.extend({
     user() {
       return this.$store.state.user;
     },
+    canCreateRedirect() {
+      return this.$store.getters.canCreateRedirect;
+    },
+    canAuthorizeStudents() {
+      return this.$store.getters.canAuthorizeStudents;
+    },
   },
   methods: {
     create() {
@@ -238,14 +243,6 @@ export default Vue.extend({
         `redirect_uri=${location.origin}/api/auth/login&` +
         `response_type=id_token&nonce=nush-link&response_mode=form_post`;
     },
-
-    isTeacher(email: string) {
-      const allowed = ["anhstjyl", "anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
-      if (!email.endsWith("@nushigh.edu.sg")) return false;
-      for (const allowedEmail of allowed) {
-        if (email.startsWith(allowedEmail)) return true;
-      }
-    }
   },
 });
 </script>
