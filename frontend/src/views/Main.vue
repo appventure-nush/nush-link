@@ -4,7 +4,13 @@
       <v-col align="center" justify="center">
         <span v-if="user && !canCreateRedirect">
           <span style="font-size: 2em"> Please ask a teacher for access to NUSH.link!</span><br>
-          Once a staff member has authorized your email, you can start using NUSH.link!
+          Once a staff member has authorized your email, you can start using NUSH.link!<br><br>
+           <v-btn
+             color="primary"
+             x-large
+             @click="signIn">
+            Sign in with another account
+          </v-btn>
         </span>
         <span v-else>
           <span v-if="user" style="font-size: 2em">
@@ -241,7 +247,7 @@ export default Vue.extend({
       location.href = `https://login.microsoftonline.com/d72a7172-d5f8-4889-9a85-d7424751592a/oauth2/authorize?` +
         `client_id=2f4b388c-143a-42b2-b69c-ff8531d58cda&` +
         `redirect_uri=${location.origin}/api/auth/login&` +
-        `response_type=id_token&nonce=nush-link&response_mode=form_post`;
+        `response_type=id_token&nonce=nush-link&response_mode=form_post&prompt=select_account`;
     },
   },
 });

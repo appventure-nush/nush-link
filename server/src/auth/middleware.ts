@@ -37,7 +37,7 @@ export default () => async (
   if (decodedToken == null) return;
   req.email = decodedToken.unique_name;
   req.username = decodedToken.name;
-  const allowed = ["h1710074", "anhstjyl","anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
+  const allowed = ["anhstjyl","anhsevxm", "anhs.chm", "anhsloh", "anhsczm", "anhsipoh", "shawnteo", "anhsaksy", "appventure", "nhs"];
   console.log(req.email);
   if (!req.email.endsWith("@nushigh.edu.sg")){
     req.can_create_redirect = false;
