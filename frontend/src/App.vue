@@ -51,7 +51,7 @@
                 <v-divider></v-divider>
                 <v-card-text class="white--text">
                     Developed by David Goh Zhe Kai, James Chin Jia Jun, Lam Jun Rong, Oliver Su Zhengchong,
-                    Kai Wen Woo and Prannaya Gupta
+                    Kai Wen Khoo, Prannaya Gupta, Devon Lim and Raghav Kumar
                 </v-card-text>
             </v-card>
         </v-footer>
