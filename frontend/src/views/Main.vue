@@ -89,7 +89,8 @@
             v-model="dialog"
             width="600px"
             height="500"
-            persistent>
+            persistent
+            >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 x-large
@@ -113,9 +114,94 @@
         </v-row>
       </v-col>
     </v-row>
+
     <v-row v-if="user">
       <v-divider/>
     </v-row>
+
+    <!-- Authorize Students -->
+    <v-row v-if="user && canAuthorizeStudents">
+      <v-col align="center" justify="center">
+          <span v-if="user && canAuthorizeStudents" style="font-size: 2em">
+          Authorise a Student!
+          </span><br>
+        <v-form
+          v-if="user && canAuthorizeStudents"
+          ref="form"
+          v-model="valid"
+          lazy-validation>
+          <v-row
+            align="center"
+            justify="center"
+            class="ma-4"
+          >
+            <v-col
+              cols="12"
+              sm="4"
+            >
+              <h3>Email</h3>
+              <v-text-field
+                x-large
+                v-model="student_email"
+                placeholder="Student Email"
+                :rules="[rules.email]"
+                required>
+              </v-text-field>
+              <v-spacer/>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="4"
+            >
+              <h3>Reason</h3>
+              <v-text-field
+                x-large
+                v-model="student_reason"
+                placeholder="Reason"
+                required>
+              </v-text-field>
+            </v-col>
+          </v-row>
+        </v-form>
+        <v-row
+          align="center"
+          justify="center"
+          class="my-6"
+        >
+          <!--  Users can only create links when signed in -->
+          <!-- Make the dialog persistent to prevent accidental closure -->
+          <v-dialog
+            v-if="user && canAuthorizeStudents"
+            v-model="student_dialog"
+            width="600px"
+            height="500"
+            persistent>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                x-large
+                :disabled="!valid || !student_email || student_email.length === 0"
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+                @click="authorise"
+              >
+                Authorise
+              </v-btn>
+            </template>
+            <authorise-student-popup
+              :success="student_success"
+              :error="student_dialog_error"
+              @close="resetForm"
+            />
+          </v-dialog>
+        </v-row>
+      </v-col>
+    </v-row>
+
+    <v-row v-if="user">
+      <v-divider/>
+    </v-row>
+
     <v-row
       v-if="user">
       <v-col align="center" justify="center">
@@ -129,17 +215,20 @@
         </v-btn>
       </v-col>
     </v-row>
+
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import CreateLinkPopup from "@/components/CreateLinkPopup.vue";
+import AuthoriseStudentPopup from "@/components/AuthoriseStudentPopup.vue"
 
 export default Vue.extend({
   name: "Main",
   components: {
-    CreateLinkPopup
+    CreateLinkPopup,
+    AuthoriseStudentPopup
   },
   data: function () {
     return {
@@ -157,6 +246,13 @@ export default Vue.extend({
             return true;
           }
           return "Invalid Alias for the New URL";
+        },
+        email: (value: string | undefined) => {
+          if (value === undefined || value === "") return true;
+          if (value.trim().toLowerCase().match(/^h\d{7}@nushigh\.edu\.sg$/)) {
+            return true;
+          }
+          return "Invalid Email";
         }
       },
       valid: true,
@@ -165,6 +261,11 @@ export default Vue.extend({
       url_new_error: "",
       checked_alias: "",
       success: false,
+      student_email: "",
+      student_reason: "",
+      student_dialog: false,
+      student_dialog_error: "",
+      student_success: false,
 
       dialog: false,
       dialog_error: "",
@@ -205,6 +306,23 @@ export default Vue.extend({
         }
       });
     },
+    authorise() {
+      this.student_success = false;
+      fetch(`/api/authorize_student`, {
+        method: "POST",
+        headers: {"Content-type": "application/json; charset=UTF-8"},
+        body: JSON.stringify({
+          student_email: this.student_email.trim(),
+          reason: this.student_reason.trim()
+        })
+      }).then(response => response.json()).then((data) => {
+        if (data.success) {
+          this.student_success = true;
+        } else if (typeof data.message !== "undefined") {
+          this.student_dialog_error = data.message;
+        }
+      });
+    },
     checkAvailability() {
       this.checked_alias = "";
       this.url_new_error = "";
@@ -237,10 +355,14 @@ export default Vue.extend({
       this.dialog = false;
       this.url_new_error = "";
       this.dialog_error = "";
+      this.student_dialog = false;
+      this.student_dialog_error = "";
     },
     resetForm() {
       this.url_new = "";
       this.url_original = "";
+      this.student_email = "";
+      this.student_reason = "";
       this.resetState();
     },
     signIn() {
@@ -249,6 +371,7 @@ export default Vue.extend({
         `redirect_uri=${location.origin}/api/auth/login&` +
         `response_type=id_token&nonce=nush-link&response_mode=form_post&prompt=select_account`;
     },
+
   },
 });
 </script>
