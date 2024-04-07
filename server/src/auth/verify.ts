@@ -15,6 +15,7 @@ export default async function verifyToken(token: string) {
   return new Promise(((resolve, reject) => {
     client.getSigningKey(kid, async (err, key) => {
       if (err) return reject(err);
+      if (!key) return reject(new Error('Key not found'));
       try {
         const signingKey = key.getPublicKey();
         const options: VerifyOptions = {

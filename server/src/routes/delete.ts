@@ -24,9 +24,9 @@ router.delete(
         throw new Error('ID must be a non-negative integer');
       }
       const results = await connection.query(
-        `DELETE FROM ${config.DB_URL_REDIRECT_TABLE} WHERE id = $1 AND creator_email = $2`
-        , [id, email]);
-      if (results.rowCount > 0) {
+        `DELETE FROM ${config.DB_URL_REDIRECT_TABLE} WHERE id = $1 AND creator_email = $2`, 
+        [id.toString(), email]);
+      if (results.rowCount) {
         return res.json({
           success: true,
         });
