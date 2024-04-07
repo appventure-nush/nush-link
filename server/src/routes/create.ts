@@ -33,7 +33,7 @@ router.post(
         [alias]);
       res.json({
         success: true,
-        result: result.rowCount > 0,
+        result: result.rowCount !== null && result.rowCount > 0,
       });
     } catch (error) {
       next(error);
