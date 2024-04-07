@@ -31,7 +31,7 @@
           <v-row>
             <v-col align="center">
           <span style="font-size: 1.5em">
-            nush.link/{{ this.alias }}
+            nush.link/{{ alias }}
           </span>
             </v-col>
           </v-row>
@@ -45,13 +45,13 @@
           <v-row>
             <v-col align="center">
           <span style="font-size: 1.5em">
-            {{ this.original }}
+            {{ original }}
           </span>
             </v-col>
           </v-row>
         </v-col>
 
-        <v-col v-if="this.success" align="center">
+        <v-col v-if="success" align="center">
           <qrcode-vue :value="original" :size="100" level="H" className='qrcode' id="picture" margin="20" padding="20" />
         </v-col>
       </v-row>

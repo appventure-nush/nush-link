@@ -16,18 +16,18 @@
             </v-app-bar>
 
             <!--    Show full page image on front page-->
-            <v-app-bar v-else app dense fixed dark shrink-on-scroll prominent fade-img-on-scroll :height="height" :src="this.img" alt class="icon" :key="this.img" :class="imgIsLoaded ? 'show,display' : 'display'" loading="lazy" @load="imgLoadedMethod">
-                <v-container fill-width :fill-height="!this.hideSubtitle" fluid>
+            <v-app-bar v-else app dense fixed dark shrink-on-scroll prominent fade-img-on-scroll :height="height" :src="img" alt class="icon" :key="img" :class="imgIsLoaded ? 'show,display' : 'display'" loading="lazy" @load="imgLoadedMethod">
+                <v-container fill-width :fill-height="!hideSubtitle" fluid>
                     <v-row align="center" justify="center">
-                        <v-col :align="(this.hideSubtitle) ? 'left' : 'center'" justify="center">
+                        <v-col :align="(hideSubtitle) ? 'left' : 'center'" justify="center">
                             <v-toolbar-title class="text-wrap" :style="{padding: 0, color: 'white', 'font-weight':500}">
-                                <span :style="{'font-size':Math.max((width < 333?0.75:1)*this.font,1)+'em'}">{{route.name}}</span>
-                                <span v-if="!this.hideSubtitle" class="text-wrap" :style="{'font-size':Math.min(1,this.font)+'em'}">
+                                <span :style="{'font-size':Math.max((width < 333?0.75:1)*font,1)+'em'}">{{route.name}}</span>
+                                <span v-if="!hideSubtitle" class="text-wrap" :style="{'font-size':Math.min(1,font)+'em'}">
                                     <br>
                                     An AppVenture Project
                                 </span>
                             </v-toolbar-title>
-                            <a v-if="!this.hideSubtitle" href="#" v-scroll-to="'#intro'" class="back-to-top"><v-icon>mdi-arrow-down</v-icon></a>
+                            <a v-if="!hideSubtitle" href="#" v-scroll-to="'#intro'" class="back-to-top"><v-icon>mdi-arrow-down</v-icon></a>
                         </v-col>
                     </v-row>
                 </v-container>

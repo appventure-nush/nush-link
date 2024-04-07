@@ -56,14 +56,14 @@
       </template>
     </v-data-table>
     <v-btn tile @click="showDeleteSelectedDialog()" color="error"
-           :disabled="this.selected.length == 0">
+           :disabled="selected.length == 0">
       <v-icon left>
         mdi-delete
       </v-icon>
       Delete Selected
     </v-btn>
     <!-- delete dialog -->
-    <v-dialog v-model="dialogDelete" max-width="500px" v-if="this.itemToDelete">
+    <v-dialog v-model="dialogDelete" max-width="500px" v-if="itemToDelete">
       <v-card>
         <v-card-title>Delete</v-card-title>
         <v-card-text>Are you sure you want to delete <a
@@ -89,7 +89,7 @@
         <v-card-actions>
           <v-btn color="primary" text @click="dialogDeleteAll = false">Cancel</v-btn>
           <v-btn color="error" text @click="deleteSelected()"
-                 :disabled="this.deletions.length == 0">Delete
+                 :disabled="deletions.length == 0">Delete
           </v-btn>
         </v-card-actions>
       </v-card>

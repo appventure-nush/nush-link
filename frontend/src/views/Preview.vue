@@ -7,10 +7,10 @@
       </v-card-title>
       <v-card-text>
         <span v-if="linkData" style="font-size: 1.5em">
-          <a :href="'https://nush.link/'+ this.alias" target="_blank">nush.link/{{
-              this.alias
+          <a :href="'https://nush.link/'+ alias" target="_blank">nush.link/{{
+              alias
             }}</a> points to
-          <a :href="this.linkData.url" target="_blank">{{ this.linkData.url }}</a>
+          <a :href="linkData.url" target="_blank">{{ linkData.url }}</a>
         </span><br><br>
         <span v-if="linkData">
           Created by <b>{{linkData.creator}}</b> on <b>{{ new Date(linkData.createdOn).toLocaleDateString() }}</b>
