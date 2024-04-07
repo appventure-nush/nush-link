@@ -37,15 +37,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import QrcodeVue from "qrcode.vue";
 
 export default Vue.extend({
   props: {
     success: Boolean,
     error: String,
-  },
-  components: {
-    QrcodeVue
   }
 });
 </script>

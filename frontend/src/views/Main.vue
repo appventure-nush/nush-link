@@ -222,7 +222,7 @@
 <script lang="ts">
 import Vue from "vue";
 import CreateLinkPopup from "@/components/CreateLinkPopup.vue";
-import AuthoriseStudentPopup from "@/components/AuthoriseStudentPopup.vue"
+import AuthoriseStudentPopup from "@/components/AuthoriseStudentPopup.vue";
 
 export default Vue.extend({
   name: "Main",
