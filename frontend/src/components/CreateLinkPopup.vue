@@ -52,7 +52,7 @@
         </v-col>
 
         <v-col v-if="success" align="center">
-          <qrcode-vue :value="original" :size="100" level="H" className='qrcode' id="picture" margin="20" padding="20" />
+          <qrcode-vue :value="'https://nush.link/' + alias" level="H" className='qrcode' id="picture" margin="20" padding="20" />
         </v-col>
       </v-row>
       <v-row v-if="!error.length">

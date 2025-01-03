@@ -69,7 +69,40 @@ router.get(
                                              FROM authorized_students`);
       return res.json({
         success: true,
-        data: result.rows
+        students: result.rows.map(row => ({
+          studentEmail: row.student_email,
+          reason: row.reason,
+          createdOn: row.created_on,
+        }))
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+router.delete(
+  '/delete/:email',
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const email = authReq.email;
+      const {email: studentEmail} = authReq.params;
+      const results = await connection.query(
+        `DELETE FROM authorized_students WHERE student_email = $1 AND authorizer_email = $2`
+        , [studentEmail, email]);
+      if (results.rowCount > 0) {
+        return res.json({
+          success: true,
+        });
+      }
+      return res.json({
+        success: false,
+        message: 'No authorized student with that email exists',
       });
     } catch (error) {
       next(error);

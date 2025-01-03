@@ -111,7 +111,17 @@
               @close="resetForm"
             />
           </v-dialog>
-        </v-row>
+          </v-row>
+            <v-row align="center" justify="center" 
+              v-if="user && canCreateRedirect">
+              <v-btn
+                @click="$router.push('/links')"
+                class="ma-4"
+                color="primary"
+                x-large>
+                View your links
+              </v-btn>
+          </v-row>
       </v-col>
     </v-row>
 
@@ -195,25 +205,21 @@
             />
           </v-dialog>
         </v-row>
+        <v-row align="center" justify="center" 
+          v-if="user && canAuthorizeStudents">
+          <v-btn
+            @click="$router.push('/students')"
+            class="ma-4"
+            color="primary"
+            x-large>
+            View your students
+          </v-btn>
+        </v-row>
       </v-col>
     </v-row>
 
     <v-row v-if="user">
       <v-divider/>
-    </v-row>
-
-    <v-row
-      v-if="user">
-      <v-col align="center" justify="center">
-        <span style="font-size: 2em">Already created a NUSH.link?</span><br>
-        <v-btn
-          @click="$router.push('/links')"
-          class="ma-4"
-          color="primary"
-          x-large>
-          View your links
-        </v-btn>
-      </v-col>
     </v-row>
 
   </v-container>

@@ -22,3 +22,14 @@ export async function getUserLinks(): Promise<LinkData[] | null> {
     return null;
   }
 }
+
+export async function getUserStudents(): Promise<LinkData[] | null> {
+  try {
+    const req = await fetch("/api/authorize_student");
+    if (req.status != 200) return null;
+    return (await req.json()).students;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
