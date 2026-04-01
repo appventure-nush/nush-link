@@ -5,3 +5,5 @@ server/built
 /node_modules/
 /.idea
 /server/config.json
+
+ignore
