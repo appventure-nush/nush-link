@@ -3,6 +3,9 @@ module.exports = {
   transpileDependencies: [
     "vuetify",
   ],
+  configureWebpack: {
+    target: "web",
+  },
   chainWebpack: (config) => {
     config.module
       .rule("ts")
