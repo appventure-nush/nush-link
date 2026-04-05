@@ -8,6 +8,14 @@ const connection = new Client({
   database: config.DB_DATABASE,
 });
 
+connection.on('error', (error) => {
+  console.error('Postgres client error:', {
+    message: error.message,
+    name: error.name,
+    stack: error.stack,
+  });
+});
+
 connection.connect();
 
 export default connection;
