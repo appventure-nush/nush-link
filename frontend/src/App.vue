@@ -61,7 +61,8 @@
 <script lang="ts">
 import Vue from "vue";
 import {
-  getUserData
+  getUserData,
+  TimeoutError
 } from "./api/me";
 
 export default Vue.extend({
@@ -99,14 +100,62 @@ export default Vue.extend({
     window.addEventListener("scroll", this.onScroll);
     this.interval = setInterval(this.setImage, 20000);
     this.img = this.imgList[Math.floor(Math.random() * this.imgList.length)];
+    
+    // Handle token recovery from backup domain redirect
+    this.handleTokenFromQuery();
+    
     getUserData().then(data => {
       this.$store.commit("user", data);
+    }).catch((error) => {
+      if (error instanceof TimeoutError) {
+        this.fallbackToBackupDomain();
+      }
     });
   },
   beforeDestroy() {
     clearInterval(this.interval);
   },
   methods: {
+    handleTokenFromQuery() {
+      // Check if token is passed as query parameter (from backup domain redirect)
+      const urlParams = new URLSearchParams(window.location.search);
+      const tokenParam = urlParams.get("token");
+      
+      if (tokenParam) {
+        // Set the token as a cookie with the same settings as the server
+        document.cookie = `token=${encodeURIComponent(tokenParam)}; path=/; SameSite=Lax; max-age=${30 * 24 * 60 * 60}`;
+        
+        // Remove token from query parameters for cleanliness
+        urlParams.delete("token");
+        const newUrl = window.location.pathname + (urlParams.toString() ? "?" + urlParams.toString() : "");
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    },
+    fallbackToBackupDomain() {
+      // Get the token cookie value
+      const token = this.getCookie("token");
+      const backupDomain = "backup.nush.link";
+      
+      if (token) {
+        // Redirect to backup domain with token as query parameter
+        // The backup domain can read this and set it as a cookie
+        window.location.href = `https://${backupDomain}?token=${encodeURIComponent(token)}`;
+      } else {
+        // If no token found, just redirect to backup domain
+        window.location.href = `https://${backupDomain}`;
+      }
+    },
+    getCookie(name: string): string | null {
+      const nameEQ = name + "=";
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.indexOf(nameEQ) === 0) {
+          return decodeURIComponent(cookie.substring(nameEQ.length));
+        }
+      }
+      return null;
+    },
     onScroll() {
       if (window.scrollY > this.height * 0.8) {
         this.font = 1;
