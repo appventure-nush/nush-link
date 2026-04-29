@@ -9,12 +9,19 @@ export class TimeoutError extends Error {
 }
 
 export async function getUserData(timeoutMs: number = 5000): Promise<UserData | null> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  let timedOut = false;
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    timeoutId = setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, timeoutMs);
     
     const req = await fetch("/api/me", { signal: controller.signal });
-    clearTimeout(timeoutId);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
     
     if (req.status === 401) {
       throw new TimeoutError("Authentication timeout - redirecting to backup");
@@ -25,11 +32,21 @@ export async function getUserData(timeoutMs: number = 5000): Promise<UserData | 
     if (e instanceof TimeoutError) {
       throw e;
     }
-    if (e instanceof Error && (e.name === "AbortError" || e.message.includes("timeout"))) {
+    if (timedOut) {
+      throw new TimeoutError("Connection timeout");
+    }
+    if (e instanceof Error && (
+      e.name === "AbortError"
+      || /timeout|timed out|econnreset|networkerror|failed to fetch|load failed/i.test(e.message)
+    )) {
       throw new TimeoutError("Connection timeout");
     }
     console.log(e);
     return null;
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
   }
 }
 

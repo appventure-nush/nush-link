@@ -17,7 +17,7 @@ router.post(
     }
     res.cookie('token', idToken, {
       secure: process.env.NODE_ENV === 'production',
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'lax',
       path: '/',
       // one month
