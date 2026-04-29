@@ -106,8 +106,11 @@ export default Vue.extend({
     
     getUserData().then(data => {
       this.$store.commit("user", data);
+      if (data === null && this.shouldFallbackToBackup()) {
+        this.fallbackToBackupDomain();
+      }
     }).catch((error) => {
-      if (error instanceof TimeoutError) {
+      if (error instanceof TimeoutError || this.shouldFallbackToBackup()) {
         this.fallbackToBackupDomain();
       }
     });
@@ -116,6 +119,11 @@ export default Vue.extend({
     clearInterval(this.interval);
   },
   methods: {
+    shouldFallbackToBackup() {
+      const host = window.location.hostname.toLowerCase();
+      const onPrimaryDomain = host === "nush.link" || host === "www.nush.link";
+      return onPrimaryDomain && !!this.getCookie("token");
+    },
     handleTokenFromQuery() {
       // Check if token is passed as query parameter (from backup domain redirect)
       const urlParams = new URLSearchParams(window.location.search);
@@ -132,6 +140,10 @@ export default Vue.extend({
       }
     },
     fallbackToBackupDomain() {
+      if (!this.shouldFallbackToBackup()) {
+        return;
+      }
+
       // Get the token cookie value
       const token = this.getCookie("token");
       const backupDomain = "backup.nush.link";
