@@ -34,16 +34,30 @@ function deasyncPromise<T>(promise: Promise<T>): T | null {
   return result;
 }
 
-let config: Config | null;
+let config: Config | null = null;
 
 const path = `${__dirname}/../../config.json`;
 
-// Check if the config file exists
-if (fs.existsSync(path)) {
+// First priority: DATABASE_HOST env var (docker-compose style)
+if (process.env.DATABASE_HOST) {
+  config = {
+    DB_HOST: process.env.DATABASE_HOST,
+    DB_USER: process.env.DATABASE_USER || 'nushlink_user',
+    DB_PASSWORD: process.env.DATABASE_PASSWORD || '',
+    DB_DATABASE: process.env.DATABASE_NAME || 'nushlink',
+    DB_URL_REDIRECT_TABLE: process.env.DB_URL_REDIRECT_TABLE || 'nush_links',
+    PORT: parseInt(process.env.PORT || '5000', 10),
+    MS_CLIENT_ID: process.env.MS_CLIENT_ID || '',
+  };
+}
+// Second priority: config.json file (original behavior)
+else if (fs.existsSync(path)) {
   const configFile = fs.readFileSync(path, 'utf8');
   config = JSON.parse(configFile) as Config;
-} else {
-  console.log('Config file missing, loading config from Vault');
+}
+// Third priority: Vault (original fallback)
+else {
+  console.log('Config file and env vars missing, loading config from Vault');
   const vaultClient = NodeVault({
     endpoint: 'https://vault.nush.app',
   });
