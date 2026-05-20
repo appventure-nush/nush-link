@@ -82,7 +82,7 @@ export default () => async (
   if (decodedToken == null) return;
   req.email = decodedToken.unique_name;
   req.username = decodedToken.name;
-  const allowed = ["anhs", "appventure", "nhs"];
+  const allowed = ["anhs", "appventure", "nhs", "DWong_15"];
   console.log('Authenticated request:', {
     email: req.email,
     username: req.username,
